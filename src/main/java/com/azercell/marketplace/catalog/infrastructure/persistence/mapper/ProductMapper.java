@@ -2,6 +2,8 @@ package com.azercell.marketplace.catalog.infrastructure.persistence.mapper;
 
 import com.azercell.marketplace.catalog.domain.aggregate.Brand;
 import com.azercell.marketplace.catalog.domain.aggregate.Product;
+import com.azercell.marketplace.catalog.domain.vo.Money;
+import com.azercell.marketplace.catalog.domain.vo.Specs;
 import com.azercell.marketplace.catalog.infrastructure.persistence.entity.ProductJpaEntity;
 
 public class ProductMapper {
@@ -25,5 +27,28 @@ public class ProductMapper {
         productJpaEntity.setVariants(variants);
 
         return productJpaEntity;
+    }
+
+    public static Product toDomain(ProductJpaEntity entity) {
+        var basePrice = Money.of(entity.getBasePrice());
+        var promoPrice = entity.getPromoPrice() != null ? Money.of(entity.getPromoPrice()) : null;
+        var specs = new Specs(entity.getSpecs());
+        var variants = ProductVariantMapper.toDomainList(entity.getVariants());
+
+        return new Product(
+                entity.getId(),
+                entity.getSku(),
+                entity.getName(),
+                entity.getBrand().getId(),
+                entity.getDescription(),
+                basePrice,
+                promoPrice,
+                entity.getPriceCurrency(),
+                specs,
+                entity.getCategoryId(),
+                variants,
+                entity.getCreditPlanIds(),
+                entity.getAvailability(),
+                entity.getStatus());
     }
 }

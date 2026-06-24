@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface ColorRepository {
     Optional<Color> findById(UUID id);
+    Optional<Color> findByName(String name);
+    Color save(Color color);
 }

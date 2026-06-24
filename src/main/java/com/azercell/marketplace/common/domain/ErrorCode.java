@@ -19,6 +19,8 @@ public enum ErrorCode {
 
     // product variant image
     PRODUCT_VARIANT_IMAGE,
+    PRODUCT_VARIANT_IMAGE_DUPLICATE,
+    PRODUCT_IMAGE_URL_REQUIRED,
 
     // color
     COLOR_NAME_REQUIRED,
@@ -45,6 +47,13 @@ public enum ErrorCode {
     ORDER_CREDIT_NOT_ACTIVE,
     INSTALLMENT_ALREADY_PAID,
     INSTALLMENT_NOT_FOUND,
+
+    // warehouse (stocks)
+    WAREHOUSE_NOT_FOUND,
+    WAREHOUSE_NAME_REQUIRED,
+    WAREHOUSE_CODE_REQUIRED,
+    WAREHOUSE_CODE_INVALID,
+    WAREHOUSE_CODE_ALREADY_EXISTS,
 
     // general
     ENTITY_NOT_FOUND,

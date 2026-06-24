@@ -3,6 +3,7 @@ package com.azercell.marketplace.common.util;
 import com.azercell.marketplace.catalog.web.dto.SpecificationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
@@ -28,5 +29,10 @@ public class CommonUtil {
         } catch (Exception e) {
             throw new IllegalArgumentException("Failed to serialize specifications", e);
         }
+    }
+
+    public JsonNode readJson(String json) {
+        if (json == null || json.isBlank()) return null;
+        return objectMapper.readTree(json);
     }
 }

@@ -3,9 +3,12 @@ package com.azercell.marketplace.catalog.infrastructure.persistence.repository.a
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
 import com.azercell.marketplace.catalog.domain.aggregate.Brand;
 import com.azercell.marketplace.catalog.domain.aggregate.Product;
+import com.azercell.marketplace.catalog.domain.vo.Status;
 import com.azercell.marketplace.catalog.infrastructure.persistence.mapper.ProductMapper;
 import com.azercell.marketplace.catalog.infrastructure.persistence.repository.ProductJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -32,19 +35,24 @@ public class ProductJpaRepositoryAdapter implements ProductRepository {
 
     @Override
     public Optional<Product> findById(UUID id) {
-        var getFromDb = productJpaRepository.findById(id);
+        return productJpaRepository.findById(id)
+                .map(ProductMapper::toDomain);
+    }
 
-        return Optional.empty();
+    @Override
+    public Page<Product> findActive(Pageable pageable) {
+        return productJpaRepository.findByStatus(Status.ACTIVE, pageable)
+                .map(ProductMapper::toDomain);
     }
 
     @Override
     public boolean existsBySku(String sku) {
-        return false;
+        return productJpaRepository.existsBySku(sku);
     }
 
     @Override
     public void deleteById(UUID id) {
-
+        productJpaRepository.deleteById(id);
     }
 
     // <editor-fold desc="helperPrivateMethods">

@@ -35,7 +35,7 @@ public class ProductImage {
         return new ProductImage(UUID.randomUUID(), name, url, altText, isPrimary, sortOrder);
     }
 
-    public static ProductImage update(UUID id, String name, String url, String altText, boolean isPrimary, int sortOrder) {
+    public static ProductImage update(UUID id, String url, String name, String altText, boolean isPrimary, int sortOrder) {
         return new ProductImage(id, name, url, altText, isPrimary, sortOrder);
     }
 
@@ -83,12 +83,12 @@ public class ProductImage {
 
     void validateNotBlankUrl(String url) {
         if (url == null || url.isBlank())
-            throw new RuntimeException("Image url cannot be empty");
+            throw new DomainException(ErrorCode.PRODUCT_IMAGE_URL_REQUIRED);
     }
 
     void validateIdIsNotNull(UUID uuid) {
         if (uuid == null)
-            throw new RuntimeException("Product Image id cannot be null");
+            throw new DomainException(ErrorCode.INVALID_ARGUMENT);
     }
 
     void validateName(String name){

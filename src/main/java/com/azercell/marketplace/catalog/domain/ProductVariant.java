@@ -3,6 +3,7 @@ package com.azercell.marketplace.catalog.domain;
 import com.azercell.marketplace.catalog.domain.vo.Money;
 import com.azercell.marketplace.catalog.domain.vo.Specs;
 import com.azercell.marketplace.catalog.domain.vo.Status;
+import com.azercell.marketplace.common.domain.ErrorCode;
 import com.azercell.marketplace.common.exception.DomainException;
 import lombok.Getter;
 
@@ -122,6 +123,7 @@ public class ProductVariant {
             } else {
                 ProductImage existing = this.productImages.stream()
                         .filter(i -> i.getId().equals(in.getId())).findFirst().orElseThrow();
+                existing.changeName(in.getName());
                 existing.setUrl(in.getUrl());
                 existing.setAltText(in.getAltText());
                 existing.reorder(in.getSortOrder());
@@ -157,23 +159,23 @@ public class ProductVariant {
                         image.getUrl().equalsIgnoreCase(newUrl));
 
         if (hasDuplicate)
-            throw new RuntimeException("There is duplicate image");
+            throw new DomainException(ErrorCode.PRODUCT_VARIANT_IMAGE_DUPLICATE);
 
     }
 
     public void validateColorIsNotNull(Color color) {
         if (color == null)
-            throw new RuntimeException("ProductVariant color cannot be null");
+            throw new DomainException(ErrorCode.VARIANT_COLOR_REQUIRED);
     }
 
     public void validateImageIsNotNull(ProductImage productImages) {
         if (productImages == null)
-            throw new RuntimeException("Product image cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_VARIANT_IMAGE);
     }
 
     public static void validateIdIsNotNull(UUID id) {
         if (id == null)
-            throw new RuntimeException("Id cannot be null");
+            throw new DomainException(ErrorCode.INVALID_ARGUMENT);
     }
     // </editor-fold>
 
