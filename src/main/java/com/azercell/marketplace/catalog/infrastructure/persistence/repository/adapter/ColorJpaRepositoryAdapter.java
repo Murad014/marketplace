@@ -20,4 +20,15 @@ public class ColorJpaRepositoryAdapter implements ColorRepository {
         var fromDb = colorJpaRepository.findById(id);
         return fromDb.map(ColorMapper::toDomain);
     }
+
+    @Override
+    public Optional<Color> findByName(String name) {
+        return colorJpaRepository.findByName(name).map(ColorMapper::toDomain);
+    }
+
+    @Override
+    public Color save(Color color) {
+        var saved = colorJpaRepository.save(ColorMapper.toJpaEntity(color));
+        return ColorMapper.toDomain(saved);
+    }
 }

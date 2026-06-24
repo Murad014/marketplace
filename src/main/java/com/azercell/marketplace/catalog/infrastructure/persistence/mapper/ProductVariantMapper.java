@@ -36,10 +36,11 @@ public class ProductVariantMapper {
     }
 
     public static ProductVariant toDomain(ProductVariantJpaEntity entity) {
-        // The variant row stores only color_id; name/hex live in the colors table and are
-        // not joined here. We rehydrate a colour from the id alone (Color.rehydrate allows
-        // a null name/hex). On the update path the colour is overwritten from the request.
-        var color = Color.rehydrate(entity.getColorId(), null, null, Status.ACTIVE);
+        // Prefer the related colors row (gives name/hex); fall back to the bare id for legacy
+        // rows whose color_id was never persisted into the colors table.
+        var color = entity.getColor() != null
+                ? ColorMapper.toDomain(entity.getColor())
+                : Color.rehydrate(entity.getColorId(), null, null, Status.ACTIVE);
         var specs = new Specs(entity.getSpecs());
         var images = ProductImageMapper.toDomainList(entity.getImages());
 

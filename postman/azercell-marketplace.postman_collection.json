@@ -1,0 +1,258 @@
+{
+  "info": {
+    "name": "Azercell Marketplace",
+    "description": "Catalog (admin + public) and Inventory/Warehousing endpoints. Requests auto-capture IDs into collection variables, so run them top-to-bottom: create -> get -> update.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "brandId", "value": "550e8400-e29b-41d4-a716-446655440000" },
+    { "key": "categoryId", "value": "f552ad81-2dc4-4af6-9aa5-cd78de2772f2" },
+    { "key": "productId", "value": "" },
+    { "key": "variantId", "value": "" },
+    { "key": "imageId", "value": "" },
+    { "key": "warehouseId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Catalog - Admin (Products)",
+      "item": [
+        {
+          "name": "Create Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body && body.data && body.data.id) {",
+                  "  pm.collectionVariables.set('productId', body.data.id);",
+                  "  console.log('productId =', body.data.id);",
+                  "}",
+                  "pm.test('201 Created', () => pm.response.code === 201);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"name\": \"iPhone 15 Pro\",\n  \"promoPrice\": 1799.99,\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Apple iPhone 15 Pro, titanium, A17 Pro.\",\n  \"price\": 1999.99,\n  \"availability\": \"ORDER_NOW\",\n  \"productVariants\": [\n    {\n      \"colorName\": \"Natural Titanium\",\n      \"colorHexCode\": \"#8A8A8A\",\n      \"stockCount\": 25,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-natural-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"name\": \"back\", \"url\": \"https://cdn.example.com/ip15-natural-back.png\", \"altText\": \"back\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"colorName\": \"Blue Titanium\",\n      \"colorHexCode\": \"#3B4A5A\",\n      \"stockCount\": 10,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-blue-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ],\n  \"specifications\": [\n    { \"specificationKey\": \"RAM\", \"specificationValue\": \"8GB\" },\n    { \"specificationKey\": \"Storage\", \"specificationValue\": \"256GB\" }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/products",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "products" ]
+            }
+          }
+        },
+        {
+          "name": "Get Product By Id (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = pm.response.json().data;",
+                  "if (d && d.variants && d.variants.length) {",
+                  "  pm.collectionVariables.set('variantId', d.variants[0].id);",
+                  "  console.log('variantId =', d.variants[0].id);",
+                  "  if (d.variants[0].images && d.variants[0].images.length) {",
+                  "    pm.collectionVariables.set('imageId', d.variants[0].images[0].id);",
+                  "    console.log('imageId =', d.variants[0].images[0].id);",
+                  "  }",
+                  "}",
+                  "pm.test('200 OK', () => pm.response.code === 200);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/products/{{productId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "products", "{{productId}}" ]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "description": "Run 'Get Product By Id (admin)' first so variantId/imageId are captured. Keeps the existing variant, edits its image, adds a new variant; the Blue variant from create gets removed.",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"name\": \"iPhone 15 Pro (Updated)\",\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Updated description.\",\n  \"price\": 1999.99,\n  \"promoPrice\": 1699.99,\n  \"categoryId\": \"{{categoryId}}\",\n  \"availability\": \"PRE_ORDER\",\n  \"variants\": [\n    {\n      \"id\": \"{{variantId}}\",\n      \"sku\": \"KEEP-EXISTING\",\n      \"colorName\": \"Jet Black\",\n      \"colorHexCode\": \"#111111\",\n      \"priceOverride\": null,\n      \"specifications\": [ { \"specificationKey\": \"Storage\", \"specificationValue\": \"512GB\" } ],\n      \"images\": [\n        { \"id\": \"{{imageId}}\", \"url\": \"https://cdn.example.com/ip15-black-front-v2.png\", \"name\": \"front-edited\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-black-side.png\", \"name\": \"side\", \"altText\": \"side\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"id\": null,\n      \"sku\": \"GREEN-NEW\",\n      \"colorName\": \"Green Titanium\",\n      \"colorHexCode\": \"#3A4A3A\",\n      \"priceOverride\": null,\n      \"specifications\": [],\n      \"images\": [\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-green-front.png\", \"name\": \"front\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/products/{{productId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "products", "{{productId}}" ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catalog - Public (Storefront)",
+      "item": [
+        {
+          "name": "List Products (paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products?page=0&size=20",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "products" ],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product By Id (public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "products", "{{productId}}" ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory - Admin (Warehouses)",
+      "item": [
+        {
+          "name": "Create Warehouse",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body && body.data && body.data.id) {",
+                  "  pm.collectionVariables.set('warehouseId', body.data.id);",
+                  "  console.log('warehouseId =', body.data.id);",
+                  "}",
+                  "pm.test('201 Created', () => pm.response.code === 201);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"name\": \"Baku Warehouse\",\n  \"code\": \"BAKU-A\",\n  \"location\": \"Baku, Azerbaijan\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses" ]
+            }
+          }
+        },
+        {
+          "name": "List Warehouses (paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses?page=0&size=20",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses" ],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Warehouse By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}" ]
+            }
+          }
+        },
+        {
+          "name": "Update Warehouse",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"name\": \"Baku Central Warehouse\",\n  \"location\": \"Baku, Nizami St\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}" ]
+            }
+          }
+        },
+        {
+          "name": "Set Primary",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/primary",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "primary" ]
+            }
+          }
+        },
+        {
+          "name": "Deactivate",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/deactivate",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "deactivate" ]
+            }
+          }
+        },
+        {
+          "name": "Activate",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/activate",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "activate" ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

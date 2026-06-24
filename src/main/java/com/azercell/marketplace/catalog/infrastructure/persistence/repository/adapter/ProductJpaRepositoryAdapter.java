@@ -3,9 +3,12 @@ package com.azercell.marketplace.catalog.infrastructure.persistence.repository.a
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
 import com.azercell.marketplace.catalog.domain.aggregate.Brand;
 import com.azercell.marketplace.catalog.domain.aggregate.Product;
+import com.azercell.marketplace.catalog.domain.vo.Status;
 import com.azercell.marketplace.catalog.infrastructure.persistence.mapper.ProductMapper;
 import com.azercell.marketplace.catalog.infrastructure.persistence.repository.ProductJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -33,6 +36,12 @@ public class ProductJpaRepositoryAdapter implements ProductRepository {
     @Override
     public Optional<Product> findById(UUID id) {
         return productJpaRepository.findById(id)
+                .map(ProductMapper::toDomain);
+    }
+
+    @Override
+    public Page<Product> findActive(Pageable pageable) {
+        return productJpaRepository.findByStatus(Status.ACTIVE, pageable)
                 .map(ProductMapper::toDomain);
     }
 
