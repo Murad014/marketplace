@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: azercell-marketplace
+  profiles:
+    active: local
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

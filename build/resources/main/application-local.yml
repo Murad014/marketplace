@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/marketplace_db_qa
+    username: myuser
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: public
+
+logging:
+  level:
+    root: INFO
+    com.azercell.marketplace: DEBUG
+
+app:
+  base-url: http://localhost:8080

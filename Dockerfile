@@ -1,0 +1,17 @@
+ARG FROM_IMAGE=${FROM_IMAGE}
+FROM $FROM_IMAGE
+ 
+ARG CI_PROJECT_TITLE
+ARG CI_COMMIT_TAG
+ 
+ENV FROM_IMAGE=${FROM_IMAGE}
+ENV TZ=Asia/Baku
+ENV CI_COMMIT_TAG=$CI_COMMIT_TAG CI_PROJECT_TITLE=$CI_PROJECT_TITLE
+ENV JAVA_OPTS=""
+ 
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN mkdir -p /app/config
+ 
+ADD build/libs/$CI_PROJECT_TITLE-$CI_COMMIT_TAG.jar /app/$CI_PROJECT_TITLE.jar
+ 
+WORKDIR /app

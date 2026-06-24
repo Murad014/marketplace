@@ -1,0 +1,53 @@
+package com.azercell.marketplace.catalog.infrastructure.persistence.repository.adapter;
+
+import com.azercell.marketplace.catalog.application.port.ProductRepository;
+import com.azercell.marketplace.catalog.domain.aggregate.Brand;
+import com.azercell.marketplace.catalog.domain.aggregate.Product;
+import com.azercell.marketplace.catalog.infrastructure.persistence.mapper.ProductMapper;
+import com.azercell.marketplace.catalog.infrastructure.persistence.repository.ProductJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
+@RequiredArgsConstructor
+public class ProductJpaRepositoryAdapter implements ProductRepository {
+    private final ProductJpaRepository productJpaRepository;
+
+    @Override
+    public UUID insert(Product product, Brand brand) {
+        var newProductJpaEntity = ProductMapper.toJpaEntity(product, brand);
+       var saveResponse = productJpaRepository.save(newProductJpaEntity);
+
+        return saveResponse.getId();
+    }
+
+    @Override
+    public void update(Product product, Brand brand) {
+        var newProductJpaEntity = ProductMapper.toJpaEntity(product, brand);
+        productJpaRepository.save(newProductJpaEntity);
+    }
+
+    @Override
+    public Optional<Product> findById(UUID id) {
+        var getFromDb = productJpaRepository.findById(id);
+
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsBySku(String sku) {
+        return false;
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+
+    }
+
+    // <editor-fold desc="helperPrivateMethods">
+
+    // </editor-fold>
+}
