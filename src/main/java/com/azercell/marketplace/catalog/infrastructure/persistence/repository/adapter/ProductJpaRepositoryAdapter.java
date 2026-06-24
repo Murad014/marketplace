@@ -32,19 +32,18 @@ public class ProductJpaRepositoryAdapter implements ProductRepository {
 
     @Override
     public Optional<Product> findById(UUID id) {
-        var getFromDb = productJpaRepository.findById(id);
-
-        return Optional.empty();
+        return productJpaRepository.findById(id)
+                .map(ProductMapper::toDomain);
     }
 
     @Override
     public boolean existsBySku(String sku) {
-        return false;
+        return productJpaRepository.existsBySku(sku);
     }
 
     @Override
     public void deleteById(UUID id) {
-
+        productJpaRepository.deleteById(id);
     }
 
     // <editor-fold desc="helperPrivateMethods">

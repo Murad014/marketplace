@@ -2,6 +2,8 @@ package com.azercell.marketplace.catalog.domain;
 
 import com.azercell.marketplace.catalog.domain.vo.HexCode;
 import com.azercell.marketplace.catalog.domain.vo.Status;
+import com.azercell.marketplace.common.domain.ErrorCode;
+import com.azercell.marketplace.common.exception.DomainException;
 import lombok.Getter;
 
 import java.util.Objects;
@@ -56,17 +58,17 @@ public class Color {
     // <editor-fold desc="privateHelperMethods">
     private static void validateIdIsNotNull(UUID id) {
         if (id == null)
-            throw new RuntimeException("Color id cannot be null");
+            throw new DomainException(ErrorCode.INVALID_ARGUMENT);
     }
 
     private static void validateName(String name) {
         if (name == null || name.isBlank())
-            throw new RuntimeException("Color name cannot be empty or null");
+            throw new DomainException(ErrorCode.COLOR_NAME_REQUIRED);
     }
 
     private static void validateHexCode(HexCode hexCode) {
         if (hexCode == null)
-            throw new RuntimeException("Color hex code cannot be null");
+            throw new DomainException(ErrorCode.COLOR_HEX_INVALID);
     }
     // </editor-fold>
 

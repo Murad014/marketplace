@@ -11,6 +11,7 @@ import com.azercell.marketplace.catalog.domain.aggregate.Product;
 import com.azercell.marketplace.catalog.domain.vo.*;
 import com.azercell.marketplace.catalog.web.dto.request.AddProductRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateProductRequest;
+import com.azercell.marketplace.catalog.web.dto.response.ProductResponse;
 import com.azercell.marketplace.common.domain.ErrorCode;
 import com.azercell.marketplace.common.exception.DomainException;
 import com.azercell.marketplace.common.util.CommonUtil;
@@ -38,15 +39,14 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public UUID addProduct(AddProductRequest request) {
         var basePrice = Money.of(request.price());
-        var promoPrice = Money.of(request.promoPrice());
+        var promoPrice = request.promoPrice() != null ? Money.of(request.promoPrice()) : null;
         var specs = new Specs(commonUtil.toJson(request.specifications()));
         var productVariants = prepareProductVariants(request);
-        var brandFromDB = brandRepository.getBrandById(request.brandId()).orElseThrow(
-                () -> new RuntimeException("Does not exist Brand id=" + request.brandId())
-        );
+        var brandFromDB = brandRepository.getBrandById(request.brandId())
+                .orElseThrow(() -> new DomainException(ErrorCode.BRAND_NOT_FOUND));
         var categoryFromDB = categoryRepository
                 .getCategoryById(request.categoryId())
-                .orElseThrow(() -> new RuntimeException("Does not exit Category id = " + request.categoryId()));
+                .orElseThrow(() -> new DomainException(ErrorCode.CATEGORY_NOT_FOUND));
 
         var newProduct = new Product(
                 null,
@@ -90,10 +90,79 @@ public class ProductServiceImpl implements ProductService {
         product.changeCategory(category.getId());
         product.changeAvailability(request.availability());
 
-        // variants (add / update / remove) — all through the root
         product.syncVariants(toVariantDomain(request.variants()));
 
         productRepository.update(product, brand);
+    }
+
+    @Override
+    @Transactional
+    public ProductResponse getProductById(UUID productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new DomainException(ErrorCode.PRODUCT_NOT_FOUND));
+        return toResponse(product);
+    }
+
+    private ProductResponse toResponse(Product product) {
+        var variants = product.getProductVariants().stream()
+                .map(this::toVariantResponse)
+                .toList();
+
+        return new ProductResponse(
+                product.getId(),
+                product.getSku(),
+                product.getName(),
+                product.getBrandId(),
+                product.getDescription(),
+                product.getBasePrice().amount(),
+                product.getPromoPrice().map(Money::amount).orElse(null),
+                product.getSellingPrice().amount(),
+                product.getPriceCurrency() != null ? product.getPriceCurrency().name() : null,
+                commonUtil.readJson(product.getSpecs() != null ? product.getSpecs().json() : null),
+                product.getCategoryId(),
+                product.getAvailability() != null ? product.getAvailability().name() : null,
+                product.getStatus() != null ? product.getStatus().name() : null,
+                product.getCreditPlans(),
+                variants
+        );
+    }
+
+    private ProductResponse.VariantResponse toVariantResponse(ProductVariant variant) {
+        var images = variant.getProductImages().stream()
+                .map(this::toImageResponse)
+                .toList();
+
+        return new ProductResponse.VariantResponse(
+                variant.getId(),
+                variant.getSku(),
+                toColorResponse(variant.getColor()),
+                variant.getPriceOverride() != null ? variant.getPriceOverride().amount() : null,
+                variant.getStatus() != null ? variant.getStatus().name() : null,
+                commonUtil.readJson(variant.getSpecs() != null ? variant.getSpecs().json() : null),
+                images
+        );
+    }
+
+    private ProductResponse.ColorResponse toColorResponse(Color color) {
+        if (color == null) return null;
+        return new ProductResponse.ColorResponse(
+                color.getId(),
+                color.getName(),
+                color.getHexCode() != null ? color.getHexCode().value() : null,
+                color.getStatus() != null ? color.getStatus().name() : null
+        );
+    }
+
+    private ProductResponse.ImageResponse toImageResponse(ProductImage image) {
+        return new ProductResponse.ImageResponse(
+                image.getId(),
+                image.getName(),
+                image.getUrl(),
+                image.getAltText(),
+                image.isPrimary(),
+                image.getSortOrder(),
+                image.getStatus() != null ? image.getStatus().name() : null
+        );
     }
 
     private List<ProductVariant> toVariantDomain(List<UpdateProductRequest.VariantPart> parts) {

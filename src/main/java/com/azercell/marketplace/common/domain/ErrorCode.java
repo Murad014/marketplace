@@ -19,6 +19,8 @@ public enum ErrorCode {
 
     // product variant image
     PRODUCT_VARIANT_IMAGE,
+    PRODUCT_VARIANT_IMAGE_DUPLICATE,
+    PRODUCT_IMAGE_URL_REQUIRED,
 
     // color
     COLOR_NAME_REQUIRED,

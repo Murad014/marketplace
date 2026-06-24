@@ -5,6 +5,7 @@ import com.azercell.marketplace.catalog.web.dto.request.AddProductRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateProductRequest;
 import com.azercell.marketplace.common.dto.ApiResponse;
 import com.azercell.marketplace.catalog.web.dto.response.ProductCreatedResponse;
+import com.azercell.marketplace.catalog.web.dto.response.ProductResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -39,6 +40,12 @@ public class ProductAdminController {
                 new ProductCreatedResponse(message,
                         insertedId.toString())),
                 HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponse>> getProductById(@PathVariable UUID id) {
+        var product = productService.getProductById(id);
+        return ResponseEntity.ok(ApiResponse.ok(product));
     }
 
     @PutMapping("/{id}")
