@@ -253,6 +253,27 @@
           }
         }
       ]
+    },
+    {
+      "name": "Inventory - Admin (Stock)",
+      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then query inventory here.",
+      "item": [
+        {
+          "name": "Get Inventory By Variant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory?variantId={{variantId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory" ],
+              "query": [
+                { "key": "variantId", "value": "{{variantId}}" }
+              ]
+            }
+          }
+        }
+      ]
     }
   ]
 }

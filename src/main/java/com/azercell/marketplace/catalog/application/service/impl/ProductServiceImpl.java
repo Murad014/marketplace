@@ -4,6 +4,7 @@ import com.azercell.marketplace.catalog.application.port.BrandRepository;
 import com.azercell.marketplace.catalog.application.port.CategoryRepository;
 import com.azercell.marketplace.catalog.application.port.ColorRepository;
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
+import com.azercell.marketplace.catalog.application.event.ProductCreatedEvent;
 import com.azercell.marketplace.catalog.application.service.ProductService;
 import com.azercell.marketplace.catalog.domain.Color;
 import com.azercell.marketplace.catalog.domain.ProductImage;
@@ -21,6 +22,7 @@ import com.azercell.marketplace.common.exception.DomainException;
 import com.azercell.marketplace.common.util.CommonUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -38,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
     private final ColorRepository colorRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     private final CommonUtil commonUtil;
 
@@ -50,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         var basePrice = Money.of(request.price());
         var promoPrice = request.promoPrice() != null ? Money.of(request.promoPrice()) : null;
         var specs = new Specs(commonUtil.toJson(request.specifications()));
-        var productVariants = prepareProductVariants(request);
+        var prepared = prepareProductVariants(request);
         var brandFromDB = brandRepository.getBrandById(request.brandId())
                 .orElseThrow(() -> new DomainException(ErrorCode.BRAND_NOT_FOUND));
         var categoryFromDB = categoryRepository
@@ -68,16 +71,20 @@ public class ProductServiceImpl implements ProductService {
                 DEFAULT_CURRENCY,
                 specs,
                 categoryFromDB.getId(),
-                productVariants,
+                prepared.variants(),
                 new HashSet<>(List.of(UUID.randomUUID(), UUID.randomUUID())), // TODO => When ready the finance context then finish
                 request.availability(),
                 Status.ACTIVE
         );
 
-        // TODO => (!!!) UPDATE STOCK (!!!) using EventPublisher
+        var insertedId = productRepository.insert(newProduct, brandFromDB);
 
+        // Announce the new product so the inventory context can seed initial stock. The stock
+        // seeds were paired to their variant id at creation time, so there is no positional
+        // coupling to the request order here.
+        eventPublisher.publishEvent(new ProductCreatedEvent(insertedId, prepared.stockSeeds()));
 
-        return productRepository.insert(newProduct, brandFromDB);
+        return insertedId;
     }
 
     @Override
@@ -280,8 +287,9 @@ public class ProductServiceImpl implements ProductService {
                 .orElseGet(() -> colorRepository.save(Color.create(name, new HexCode(hexCode))));
     }
 
-    private List<ProductVariant> prepareProductVariants(AddProductRequest request) {
+    private PreparedVariants prepareProductVariants(AddProductRequest request) {
         List<ProductVariant> productVariants = new ArrayList<>();
+        List<ProductCreatedEvent.VariantStock> stockSeeds = new ArrayList<>();
         request.productVariants()
                 .forEach(productVReq -> {
                     var color = resolveColor(productVReq.colorName(), productVReq.colorHexCode());
@@ -297,8 +305,16 @@ public class ProductServiceImpl implements ProductService {
                     });
                     var productVariantDomain = ProductVariant.create(color, null, productVariantImages);
                     productVariants.add(productVariantDomain);
+
+                    // Pair stock to THIS variant's id here, in the same iteration that created it.
+                    int qty = productVReq.stockCount() == null ? 0 : productVReq.stockCount();
+                    stockSeeds.add(new ProductCreatedEvent.VariantStock(productVariantDomain.getId(), qty));
                 });
-        return productVariants;
+        return new PreparedVariants(productVariants, stockSeeds);
     }
+
+    /** The variants to persist, plus the per-variant initial stock seeds (paired by variant id). */
+    private record PreparedVariants(List<ProductVariant> variants,
+                                    List<ProductCreatedEvent.VariantStock> stockSeeds) {}
     // </editor-fold>
 }

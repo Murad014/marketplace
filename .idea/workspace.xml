@@ -4,76 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Product insert, update and get product by id are ready.">
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/controller/ProductController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/dto/response/ColorOptionResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/dto/response/ProductResponse$ColorResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/dto/response/ProductResponse$ImageResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/dto/response/ProductResponse$VariantResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/dto/response/ProductResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/web/dto/response/ProductSummaryResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/common/dto/PageResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/port/WarehouseRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/service/WarehouseService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/service/impl/WarehouseServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/domain/aggregate/Warehouse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/entity/WarehouseJpaEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/mapper/WarehouseMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/repository/WarehouseJpaRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/repository/adapter/WarehouseJpaRepositoryAdapter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/web/controller/WarehouseAdminController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/web/dto/request/CreateWarehouseRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/web/dto/request/UpdateWarehouseRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/web/dto/response/WarehouseResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/resolvedMainClassName" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Warehouse.class.uniqueId0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseJpaRepositoryAdapter.class.uniqueId2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseMapper.class.uniqueId3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseRepository.class.uniqueId4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseServiceImpl.class.uniqueId1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/controller/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ColorOptionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ProductResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ProductSummaryResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/dto/PageResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/port/WarehouseRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/WarehouseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/impl/WarehouseServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/domain/aggregate/Warehouse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/entity/WarehouseJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/mapper/WarehouseMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/repository/WarehouseJpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/repository/adapter/WarehouseJpaRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/web/controller/WarehouseAdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/web/dto/request/CreateWarehouseRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/web/dto/request/UpdateWarehouseRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/web/dto/response/WarehouseResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: product manager is ready. And Warehouse CRUD is ready.">
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/event/ProductCreatedEvent$VariantStock.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/event/ProductCreatedEvent.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/event/ProductCreatedEventListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/port/InventoryRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/service/InventoryService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/application/service/impl/InventoryServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/domain/aggregate/Inventory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/entity/InventoryJpaEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/mapper/InventoryMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/repository/InventoryJpaRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/infrastructure/persistence/repository/adapter/InventoryJpaRepositoryAdapter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/web/controller/InventoryAdminController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/inventory/web/dto/response/InventoryResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Brand.class.uniqueId0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Color.class.uniqueId6" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/DomainException.class.uniqueId1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/ErrorCode.class.uniqueId7" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/GlobalExceptionHandler.class.uniqueId10" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/HexCode.class.uniqueId3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Product.class.uniqueId5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/ProductImage.class.uniqueId8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/ProductServiceImpl.class.uniqueId9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/ProductVariant.class.uniqueId11" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/event/ProductCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/event/ProductCreatedEventListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/port/InventoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/InventoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/impl/InventoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/domain/aggregate/Inventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/entity/InventoryJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/mapper/InventoryMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/repository/InventoryJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/infrastructure/persistence/repository/adapter/InventoryJpaRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/web/controller/InventoryAdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/web/dto/response/InventoryResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/port/ColorRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/port/ColorRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/port/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/port/ProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/service/ProductService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/entity/ProductVariantJpaEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/entity/ProductVariantJpaEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/mapper/ProductVariantMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/mapper/ProductVariantMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ColorJpaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ColorJpaRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ColorJpaRepositoryAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ColorJpaRepositoryAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/common/domain/ErrorCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/azercell/marketplace/common/domain/ErrorCode.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/messages_az.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/messages_az.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Warehouse.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/Warehouse.class.uniqueId2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseJpaRepositoryAdapter.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseMapper.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseRepository.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseServiceImpl.class.uniqueId1" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/WarehouseServiceImpl.class.uniqueId4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ColorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ColorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/entity/ProductVariantJpaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/entity/ProductVariantJpaEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/mapper/ProductVariantMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/mapper/ProductVariantMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ColorJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ColorJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ColorJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ColorJpaRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_az.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_az.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterDir="false" />
@@ -184,11 +163,20 @@
       <option name="project" value="LOCAL" />
       <updated>1782318534970</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: product manager is ready. And Warehouse CRUD is ready.">
+      <option name="closed" value="true" />
+      <created>1782327246319</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1782327246319</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Product insert, update and get product by id are ready." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Product insert, update and get product by id are ready." />
+    <MESSAGE value="feat: product manager is ready. And Warehouse CRUD is ready." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: product manager is ready. And Warehouse CRUD is ready." />
   </component>
 </project>
