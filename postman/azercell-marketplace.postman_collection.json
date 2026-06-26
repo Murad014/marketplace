@@ -256,7 +256,7 @@
     },
     {
       "name": "Inventory - Admin (Stock)",
-      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then query inventory here.",
+      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then use the requests here. Restock/Adjust need warehouseId — set the {{warehouseId}} variable (e.g. via Create/Set-Primary warehouse) to the PRIMARY warehouse so it matches the seeded rows.",
       "item": [
         {
           "name": "Get Inventory By Variant",
@@ -269,6 +269,57 @@
               "path": [ "api", "v1", "admin", "inventory" ],
               "query": [
                 { "key": "variantId", "value": "{{variantId}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Restock (+amount)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"variantId\": \"{{variantId}}\",\n  \"amount\": 15,\n  \"reference\": \"PO-2026-001\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory/restock",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory", "restock" ]
+            }
+          }
+        },
+        {
+          "name": "Adjust (set absolute quantity)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"variantId\": \"{{variantId}}\",\n  \"newQuantity\": 30,\n  \"reference\": \"STOCKTAKE-Q2\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory/adjust",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory", "adjust" ]
+            }
+          }
+        },
+        {
+          "name": "Get Movement Ledger",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory/movements?variantId={{variantId}}&page=0&size=20",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory", "movements" ],
+              "query": [
+                { "key": "variantId", "value": "{{variantId}}" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" }
               ]
             }
           }

@@ -34,9 +34,10 @@ public class  ProductCreatedEventListener {
         }
 
         var warehouseId = primary.get().getId();
+        var reference = "PRODUCT_CREATE:" + event.productId();
         for (var vs : event.variantStocks()) {
             if (vs.quantity() > 0) {
-                inventoryService.seedStock(warehouseId, vs.variantId(), vs.quantity());
+                inventoryService.seedStock(warehouseId, vs.variantId(), vs.quantity(), reference);
             }
         }
         log.debug("Seeded stock for product {} into warehouse {}", event.productId(), warehouseId);
