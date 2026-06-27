@@ -3,7 +3,9 @@ package com.azercell.marketplace.catalog.application.service.impl;
 import com.azercell.marketplace.catalog.application.port.BrandRepository;
 import com.azercell.marketplace.catalog.application.port.CategoryRepository;
 import com.azercell.marketplace.catalog.application.port.ColorRepository;
+import com.azercell.marketplace.catalog.application.port.CreditPlanApi;
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
+import com.azercell.marketplace.catalog.application.event.ProductCreatedEvent;
 import com.azercell.marketplace.catalog.application.service.ProductService;
 import com.azercell.marketplace.catalog.domain.Color;
 import com.azercell.marketplace.catalog.domain.ProductImage;
@@ -21,6 +23,7 @@ import com.azercell.marketplace.common.exception.DomainException;
 import com.azercell.marketplace.common.util.CommonUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,6 +32,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -38,6 +42,8 @@ public class ProductServiceImpl implements ProductService {
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
     private final ColorRepository colorRepository;
+    private final CreditPlanApi creditPlanApi;
+    private final ApplicationEventPublisher eventPublisher;
 
     private final CommonUtil commonUtil;
 
@@ -50,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
         var basePrice = Money.of(request.price());
         var promoPrice = request.promoPrice() != null ? Money.of(request.promoPrice()) : null;
         var specs = new Specs(commonUtil.toJson(request.specifications()));
-        var productVariants = prepareProductVariants(request);
+        var prepared = prepareProductVariants(request);
         var brandFromDB = brandRepository.getBrandById(request.brandId())
                 .orElseThrow(() -> new DomainException(ErrorCode.BRAND_NOT_FOUND));
         var categoryFromDB = categoryRepository
@@ -68,16 +74,20 @@ public class ProductServiceImpl implements ProductService {
                 DEFAULT_CURRENCY,
                 specs,
                 categoryFromDB.getId(),
-                productVariants,
-                new HashSet<>(List.of(UUID.randomUUID(), UUID.randomUUID())), // TODO => When ready the finance context then finish
+                prepared.variants(),
+                resolveEligibleCreditPlans(request.creditPlanIds()),
                 request.availability(),
                 Status.ACTIVE
         );
 
-        // TODO => (!!!) UPDATE STOCK (!!!) using EventPublisher
+        var insertedId = productRepository.insert(newProduct, brandFromDB);
 
+        // Announce the new product so the inventory context can seed initial stock. The stock
+        // seeds were paired to their variant id at creation time, so there is no positional
+        // coupling to the request order here.
+        eventPublisher.publishEvent(new ProductCreatedEvent(insertedId, prepared.stockSeeds()));
 
-        return productRepository.insert(newProduct, brandFromDB);
+        return insertedId;
     }
 
     @Override
@@ -94,14 +104,42 @@ public class ProductServiceImpl implements ProductService {
         product.changeName(request.name());
         product.changeBrand(brand.getId());
         product.changeDescription(request.description());
+
+        // Re-price: drop the old promo first so it can't block a base-price change, set the new
+        // base, then re-apply the promo (validated against the new base).
+        product.clearPromoPrice();
         product.changeBasePrice(Money.of(request.price()));
+        if (request.promoPrice() != null)
+            product.applyPromoPrice(Money.of(request.promoPrice()));
+
         product.changeSpecs(new Specs(commonUtil.toJson(request.specifications())));
         product.changeCategory(category.getId());
         product.changeAvailability(request.availability());
+        product.changeCreditPlans(resolveEligibleCreditPlans(request.creditPlanIds()));
 
         product.syncVariants(toVariantDomain(request.variants()));
 
         productRepository.update(product, brand);
+    }
+
+    /**
+     * Resolve which credit plans a product is eligible for: validate explicitly-requested plans
+     * (must exist and be active), or default to all active plans when none are supplied.
+     */
+    private Set<UUID> resolveEligibleCreditPlans(List<UUID> requestedPlanIds) {
+        if (requestedPlanIds != null && !requestedPlanIds.isEmpty()) {
+            for (UUID planId : requestedPlanIds) {
+                if (!creditPlanApi.existsAndActive(planId))
+                    throw new DomainException(ErrorCode.CREDIT_PLAN_NOT_ACTIVE);
+            }
+            return new HashSet<>(requestedPlanIds);
+        }
+
+        // No explicit selection -> the curated standard offering (active DEFAULT-type plans).
+        Set<UUID> defaultPlans = creditPlanApi.defaultPlanIds();
+        if (defaultPlans.isEmpty())
+            throw new DomainException(ErrorCode.PRODUCT_CREDIT_PLAN_REQUIRED);
+        return defaultPlans;
     }
 
     @Override
@@ -179,6 +217,14 @@ public class ProductServiceImpl implements ProductService {
                 .map(this::toVariantResponse)
                 .toList();
 
+        // Installment options for the actual selling price across the product's eligible plans.
+        var installmentOptions = creditPlanApi
+                .quoteFor(product.getSellingPrice().amount(), product.getCreditPlans()).stream()
+                .map(q -> new ProductResponse.InstallmentOption(
+                        q.planId(), q.name(), q.months(), q.interestRate(),
+                        q.monthlyInstallment(), q.totalPayable()))
+                .toList();
+
         return new ProductResponse(
                 product.getId(),
                 product.getSku(),
@@ -194,6 +240,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getAvailability() != null ? product.getAvailability().name() : null,
                 product.getStatus() != null ? product.getStatus().name() : null,
                 product.getCreditPlans(),
+                installmentOptions,
                 variants
         );
     }
@@ -280,8 +327,9 @@ public class ProductServiceImpl implements ProductService {
                 .orElseGet(() -> colorRepository.save(Color.create(name, new HexCode(hexCode))));
     }
 
-    private List<ProductVariant> prepareProductVariants(AddProductRequest request) {
+    private PreparedVariants prepareProductVariants(AddProductRequest request) {
         List<ProductVariant> productVariants = new ArrayList<>();
+        List<ProductCreatedEvent.VariantStock> stockSeeds = new ArrayList<>();
         request.productVariants()
                 .forEach(productVReq -> {
                     var color = resolveColor(productVReq.colorName(), productVReq.colorHexCode());
@@ -297,8 +345,16 @@ public class ProductServiceImpl implements ProductService {
                     });
                     var productVariantDomain = ProductVariant.create(color, null, productVariantImages);
                     productVariants.add(productVariantDomain);
+
+                    // Pair stock to THIS variant's id here, in the same iteration that created it.
+                    int qty = productVReq.stockCount() == null ? 0 : productVReq.stockCount();
+                    stockSeeds.add(new ProductCreatedEvent.VariantStock(productVariantDomain.getId(), qty));
                 });
-        return productVariants;
+        return new PreparedVariants(productVariants, stockSeeds);
     }
+
+    /** The variants to persist, plus the per-variant initial stock seeds (paired by variant id). */
+    private record PreparedVariants(List<ProductVariant> variants,
+                                    List<ProductCreatedEvent.VariantStock> stockSeeds) {}
     // </editor-fold>
 }

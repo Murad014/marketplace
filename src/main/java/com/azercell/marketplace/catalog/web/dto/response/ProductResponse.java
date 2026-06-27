@@ -20,8 +20,18 @@ public record ProductResponse(
         String availability,
         String status,
         Set<UUID> creditPlans,
+        List<InstallmentOption> installmentOptions,
         List<VariantResponse> variants
 ) {
+
+    public record InstallmentOption(
+            UUID planId,
+            String name,
+            int months,
+            BigDecimal interestRate,
+            BigDecimal monthlyInstallment,
+            BigDecimal totalPayable
+    ) {}
 
     public record VariantResponse(
             UUID id,

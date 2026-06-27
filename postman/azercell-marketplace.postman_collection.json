@@ -11,7 +11,8 @@
     { "key": "productId", "value": "" },
     { "key": "variantId", "value": "" },
     { "key": "imageId", "value": "" },
-    { "key": "warehouseId", "value": "" }
+    { "key": "warehouseId", "value": "" },
+    { "key": "creditPlanId", "value": "" }
   ],
   "item": [
     {
@@ -19,6 +20,7 @@
       "item": [
         {
           "name": "Create Product",
+          "description": "creditPlanIds: omit or pass [] -> product is eligible for ALL active credit plans (the default). Pass specific plan ids (see Financing -> List Credit Plans) to restrict; an unknown/inactive id returns 400 CREDIT_PLAN_NOT_ACTIVE. GET product detail returns installmentOptions (monthly + total per eligible plan) computed off the selling price (promo-aware).",
           "event": [
             {
               "listen": "test",
@@ -41,7 +43,7 @@
             "body": {
               "mode": "raw",
               "options": { "raw": { "language": "json" } },
-              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"name\": \"iPhone 15 Pro\",\n  \"promoPrice\": 1799.99,\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Apple iPhone 15 Pro, titanium, A17 Pro.\",\n  \"price\": 1999.99,\n  \"availability\": \"ORDER_NOW\",\n  \"productVariants\": [\n    {\n      \"colorName\": \"Natural Titanium\",\n      \"colorHexCode\": \"#8A8A8A\",\n      \"stockCount\": 25,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-natural-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"name\": \"back\", \"url\": \"https://cdn.example.com/ip15-natural-back.png\", \"altText\": \"back\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"colorName\": \"Blue Titanium\",\n      \"colorHexCode\": \"#3B4A5A\",\n      \"stockCount\": 10,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-blue-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ],\n  \"specifications\": [\n    { \"specificationKey\": \"RAM\", \"specificationValue\": \"8GB\" },\n    { \"specificationKey\": \"Storage\", \"specificationValue\": \"256GB\" }\n  ]\n}"
+              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"name\": \"iPhone 15 Pro\",\n  \"promoPrice\": 1799.99,\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Apple iPhone 15 Pro, titanium, A17 Pro.\",\n  \"price\": 1999.99,\n  \"availability\": \"ORDER_NOW\",\n  \"productVariants\": [\n    {\n      \"colorName\": \"Natural Titanium\",\n      \"colorHexCode\": \"#8A8A8A\",\n      \"stockCount\": 25,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-natural-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"name\": \"back\", \"url\": \"https://cdn.example.com/ip15-natural-back.png\", \"altText\": \"back\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"colorName\": \"Blue Titanium\",\n      \"colorHexCode\": \"#3B4A5A\",\n      \"stockCount\": 10,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-blue-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ],\n  \"specifications\": [\n    { \"specificationKey\": \"RAM\", \"specificationValue\": \"8GB\" },\n    { \"specificationKey\": \"Storage\", \"specificationValue\": \"256GB\" }\n  ],\n  \"creditPlanIds\": []\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/products",
@@ -52,6 +54,7 @@
         },
         {
           "name": "Get Product By Id (admin)",
+          "description": "Response includes installmentOptions: for each eligible credit plan, the monthlyInstallment + totalPayable for the product's selling price.",
           "event": [
             {
               "listen": "test",
@@ -91,7 +94,7 @@
             "body": {
               "mode": "raw",
               "options": { "raw": { "language": "json" } },
-              "raw": "{\n  \"name\": \"iPhone 15 Pro (Updated)\",\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Updated description.\",\n  \"price\": 1999.99,\n  \"promoPrice\": 1699.99,\n  \"categoryId\": \"{{categoryId}}\",\n  \"availability\": \"PRE_ORDER\",\n  \"variants\": [\n    {\n      \"id\": \"{{variantId}}\",\n      \"sku\": \"KEEP-EXISTING\",\n      \"colorName\": \"Jet Black\",\n      \"colorHexCode\": \"#111111\",\n      \"priceOverride\": null,\n      \"specifications\": [ { \"specificationKey\": \"Storage\", \"specificationValue\": \"512GB\" } ],\n      \"images\": [\n        { \"id\": \"{{imageId}}\", \"url\": \"https://cdn.example.com/ip15-black-front-v2.png\", \"name\": \"front-edited\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-black-side.png\", \"name\": \"side\", \"altText\": \"side\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"id\": null,\n      \"sku\": \"GREEN-NEW\",\n      \"colorName\": \"Green Titanium\",\n      \"colorHexCode\": \"#3A4A3A\",\n      \"priceOverride\": null,\n      \"specifications\": [],\n      \"images\": [\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-green-front.png\", \"name\": \"front\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ]\n}"
+              "raw": "{\n  \"name\": \"iPhone 15 Pro (Updated)\",\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Updated description.\",\n  \"price\": 1999.99,\n  \"promoPrice\": 1699.99,\n  \"categoryId\": \"{{categoryId}}\",\n  \"availability\": \"PRE_ORDER\",\n  \"variants\": [\n    {\n      \"id\": \"{{variantId}}\",\n      \"sku\": \"KEEP-EXISTING\",\n      \"colorName\": \"Jet Black\",\n      \"colorHexCode\": \"#111111\",\n      \"priceOverride\": null,\n      \"specifications\": [ { \"specificationKey\": \"Storage\", \"specificationValue\": \"512GB\" } ],\n      \"images\": [\n        { \"id\": \"{{imageId}}\", \"url\": \"https://cdn.example.com/ip15-black-front-v2.png\", \"name\": \"front-edited\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-black-side.png\", \"name\": \"side\", \"altText\": \"side\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"id\": null,\n      \"sku\": \"GREEN-NEW\",\n      \"colorName\": \"Green Titanium\",\n      \"colorHexCode\": \"#3A4A3A\",\n      \"priceOverride\": null,\n      \"specifications\": [],\n      \"images\": [\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-green-front.png\", \"name\": \"front\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ],\n  \"creditPlanIds\": []\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/products/{{productId}}",
@@ -249,6 +252,183 @@
               "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/activate",
               "host": [ "{{baseUrl}}" ],
               "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "activate" ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory - Admin (Stock)",
+      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then use the requests here. Restock/Adjust need warehouseId — set the {{warehouseId}} variable (e.g. via Create/Set-Primary warehouse) to the PRIMARY warehouse so it matches the seeded rows.",
+      "item": [
+        {
+          "name": "Get Inventory By Variant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory?variantId={{variantId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory" ],
+              "query": [
+                { "key": "variantId", "value": "{{variantId}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Restock (+amount)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"variantId\": \"{{variantId}}\",\n  \"amount\": 15,\n  \"reference\": \"PO-2026-001\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory/restock",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory", "restock" ]
+            }
+          }
+        },
+        {
+          "name": "Adjust (set absolute quantity)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"variantId\": \"{{variantId}}\",\n  \"newQuantity\": 30,\n  \"reference\": \"STOCKTAKE-Q2\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory/adjust",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory", "adjust" ]
+            }
+          }
+        },
+        {
+          "name": "Get Movement Ledger",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/inventory/movements?variantId={{variantId}}&page=0&size=20",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "inventory", "movements" ],
+              "query": [
+                { "key": "variantId", "value": "{{variantId}}" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "20" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Financing - Credit Plans",
+      "description": "Admin defines installment plans. The public 'Quote' endpoint computes monthly amounts for a price (storefront 'from X / month'). Interest is flat: interest = price x rate%, total = price + interest, monthly = total / months. type: DEFAULT = part of the standard offering, auto-applied to products that don't specify creditPlanIds; OPTIONAL = opt-in, only applied when a product explicitly lists it. The 5 standard plans (Full/3/6/9/12) are auto-seeded as DEFAULT on a fresh DB.",
+      "item": [
+        {
+          "name": "Create Credit Plan",
+          "description": "type: omit -> OPTIONAL (safe default); set DEFAULT to add the plan to the standard offering. This sample creates an OPTIONAL plan, so it will NOT auto-apply to products unless explicitly assigned via creditPlanIds.",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const b = pm.response.json();",
+                  "if (b && b.data && b.data.id) { pm.collectionVariables.set('creditPlanId', b.data.id); }",
+                  "pm.test('201 Created', () => pm.response.code === 201);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"name\": \"18 months special\",\n  \"months\": 18,\n  \"interestRate\": 8,\n  \"type\": \"OPTIONAL\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/credit-plans",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "credit-plans" ]
+            }
+          }
+        },
+        {
+          "name": "List Credit Plans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/credit-plans",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "credit-plans" ]
+            }
+          }
+        },
+        {
+          "name": "Update Credit Plan",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"name\": \"18 months special\",\n  \"months\": 18,\n  \"interestRate\": 7.5,\n  \"type\": \"OPTIONAL\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/credit-plans/{{creditPlanId}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "credit-plans", "{{creditPlanId}}" ]
+            }
+          }
+        },
+        {
+          "name": "Deactivate Credit Plan",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/credit-plans/{{creditPlanId}}/deactivate",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "credit-plans", "{{creditPlanId}}", "deactivate" ]
+            }
+          }
+        },
+        {
+          "name": "Activate Credit Plan",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/credit-plans/{{creditPlanId}}/activate",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "admin", "credit-plans", "{{creditPlanId}}", "activate" ]
+            }
+          }
+        },
+        {
+          "name": "Installment Quote (public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/credit-plans/quote?price=1200",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "credit-plans", "quote" ],
+              "query": [
+                { "key": "price", "value": "1200" }
+              ]
             }
           }
         }
