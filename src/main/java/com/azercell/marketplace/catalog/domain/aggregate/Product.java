@@ -146,6 +146,12 @@ public class Product {
         productVariants.removeIf(v -> v.getId().equals(variantId));
     }
 
+    public void changeCreditPlans(Set<UUID> newCreditPlans) {
+        validateCreditPlans(newCreditPlans);
+        this.creditPlans.clear();
+        this.creditPlans.addAll(newCreditPlans);
+    }
+
     public void addCreditPlan(UUID creditPlanId) {
         if (creditPlanId == null)
             throw new IllegalArgumentException("Credit plan id cannot be null.");

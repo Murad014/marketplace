@@ -15,6 +15,7 @@ public class ProductMapper {
         productJpaEntity.setName(product.getName());
         productJpaEntity.setDescription(product.getDescription());
         productJpaEntity.setBasePrice(product.getBasePrice().amount());
+        product.getPromoPrice().ifPresent(m -> productJpaEntity.setPromoPrice(m.amount()));
         productJpaEntity.setPriceCurrency(product.getPriceCurrency());
         productJpaEntity.setSpecs(product.getSpecs().json());
         productJpaEntity.setCategoryId(product.getCategoryId());

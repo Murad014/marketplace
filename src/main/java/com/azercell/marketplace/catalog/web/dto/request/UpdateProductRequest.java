@@ -18,7 +18,9 @@ public record UpdateProductRequest(
         List<SpecificationDto> specifications,
         @NotNull UUID categoryId,
         @NotNull Availability availability,
-        @NotEmpty @Valid List<VariantPart> variants
+        @NotEmpty @Valid List<VariantPart> variants,
+        // Eligible credit plans; null/empty -> defaults to all active plans.
+        List<UUID> creditPlanIds
 ) {
     public record VariantPart(
             UUID id,                       // null = new variant

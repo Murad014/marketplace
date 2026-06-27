@@ -36,7 +36,10 @@ public record AddProductRequest(
         @NotEmpty(message = "Product Color cannot be empty.")
         List<ProductVariantDto> productVariants,
 
-        List<SpecificationDto> specifications
+        List<SpecificationDto> specifications,
+
+        // Eligible credit plans; null/empty -> defaults to all active plans.
+        List<UUID> creditPlanIds
 ) {
 
 }
