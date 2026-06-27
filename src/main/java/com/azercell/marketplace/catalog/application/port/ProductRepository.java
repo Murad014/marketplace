@@ -12,6 +12,7 @@ public interface ProductRepository {
     UUID insert(Product product, Brand brand);
     void update(Product product, Brand brand);
     Optional<Product> findById(UUID id);
+    Optional<Product> findByVariantId(UUID variantId);
     Page<Product> findActive(Pageable pageable);
     boolean existsBySku(String sku);
 
