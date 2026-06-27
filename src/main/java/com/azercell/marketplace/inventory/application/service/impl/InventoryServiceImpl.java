@@ -50,6 +50,33 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Transactional
+    public void reserve(UUID warehouseId, UUID variantId, int quantity, String reference) {
+        var inventory = load(warehouseId, variantId);
+        inventory.reserve(quantity);
+        inventoryRepository.save(inventory);
+        recordMovement(warehouseId, variantId, -quantity, MovementType.RESERVE, reference);
+    }
+
+    @Override
+    @Transactional
+    public void release(UUID warehouseId, UUID variantId, int quantity, String reference) {
+        var inventory = load(warehouseId, variantId);
+        inventory.release(quantity);
+        inventoryRepository.save(inventory);
+        recordMovement(warehouseId, variantId, quantity, MovementType.RELEASE, reference);
+    }
+
+    @Override
+    @Transactional
+    public void ship(UUID warehouseId, UUID variantId, int quantity, String reference) {
+        var inventory = load(warehouseId, variantId);
+        inventory.shipReserved(quantity);
+        inventoryRepository.save(inventory);
+        recordMovement(warehouseId, variantId, -quantity, MovementType.SALE, reference);
+    }
+
+    @Override
+    @Transactional
     public InventoryResponse restock(RestockRequest request) {
         var inventory = load(request.warehouseId(), request.variantId());
         inventory.restock(request.amount());

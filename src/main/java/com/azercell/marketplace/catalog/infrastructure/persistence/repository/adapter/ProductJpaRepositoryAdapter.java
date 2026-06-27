@@ -40,6 +40,11 @@ public class ProductJpaRepositoryAdapter implements ProductRepository {
     }
 
     @Override
+    public Optional<Product> findByVariantId(UUID variantId) {
+        return productJpaRepository.findByVariantId(variantId).map(ProductMapper::toDomain);
+    }
+
+    @Override
     public Page<Product> findActive(Pageable pageable) {
         return productJpaRepository.findByStatus(Status.ACTIVE, pageable)
                 .map(ProductMapper::toDomain);
