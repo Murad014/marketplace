@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
 
     /** Bean-validation failures on a @Valid body — reported with field-level detail. */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<?>> handleValidation(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponse<?>> handleValidation(MethodArgumentNotValidException ex, Locale locale) {
         List<ApiError.FieldError> fields = ex.getBindingResult().getFieldErrors().stream()
                 .map(fe -> ApiError.FieldError.builder()
                         .field(fe.getField())
@@ -56,27 +56,28 @@ public class GlobalExceptionHandler {
                         .build())
                 .toList();
 
+        String message = msg("VALIDATION_FAILED", locale);
         var error = ApiError.builder()
                 .code("VALIDATION_FAILED")
-                .detail("Request validation failed")
+                .detail(message)
                 .fields(fields)
                 .build();
 
         return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Request validation failed", HttpStatus.BAD_REQUEST, error));
+                .body(ApiResponse.error(message, HttpStatus.BAD_REQUEST, error));
     }
 
     /** Malformed JSON, or an unparseable enum/number in the request body (e.g. a bad availability value). */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiResponse<?>> handleUnreadable(HttpMessageNotReadableException ex) {
+    public ResponseEntity<ApiResponse<?>> handleUnreadable(HttpMessageNotReadableException ex, Locale locale) {
+        String message = msg("MALFORMED_REQUEST", locale);
         var error = ApiError.builder()
                 .code("MALFORMED_REQUEST")
-                .detail("Request body is missing, malformed, or contains an invalid value")
+                .detail(message)
                 .build();
 
         return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Request body is missing, malformed, or contains an invalid value",
-                        HttpStatus.BAD_REQUEST, error));
+                .body(ApiResponse.error(message, HttpStatus.BAD_REQUEST, error));
     }
 
     /** Domain guard failures thrown as plain argument/state violations (price, hex, money, etc.). */
@@ -93,15 +94,21 @@ public class GlobalExceptionHandler {
 
     /** Anything unexpected — consistent 500 envelope, still logged with the full stack trace. */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<?>> handleUnexpected(Exception ex) {
+    public ResponseEntity<ApiResponse<?>> handleUnexpected(Exception ex, Locale locale) {
         log.error("Unhandled exception", ex);
 
+        String message = msg("INTERNAL_ERROR", locale);
         var error = ApiError.builder()
                 .code("INTERNAL_ERROR")
-                .detail(ex.getMessage())
+                .detail(message)
                 .build();
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR, error));
+                .body(ApiResponse.error(message, HttpStatus.INTERNAL_SERVER_ERROR, error));
+    }
+
+    /** Resolves an envelope message code against messages_*.properties, falling back to the code itself. */
+    private String msg(String code, Locale locale) {
+        return messageSource.getMessage(code, null, code, locale);
     }
 }

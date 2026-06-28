@@ -1,5 +1,7 @@
 package com.azercell.marketplace.filemanager.service;
 
+import com.azercell.marketplace.common.domain.ErrorCode;
+import com.azercell.marketplace.common.exception.DomainException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
@@ -62,7 +64,7 @@ public class ProductImageUploaderService {
     private String uploadSingleImage(MultipartFile file) {
         String contentType = file.getContentType();
         if (contentType == null || !ALLOWED_MIME_TYPES.contains(contentType.toLowerCase())) {
-            throw new IllegalArgumentException("Invalid file type! Only PNG, JPG, JPEG, and WEBP are supported.");
+            throw new DomainException(ErrorCode.FILE_TYPE_UNSUPPORTED);
         }
 
         try {

@@ -92,9 +92,7 @@ public class Product {
     public void changeBasePrice(Money newBasePrice) {
         validateBasePrice(newBasePrice);
         if (this.promoPrice != null && this.promoPrice.isGreaterThan(newBasePrice))
-            throw new IllegalStateException(
-                    "New base price is lower than the current promo price; " +
-                            "clear or update the promo price first.");
+            throw new DomainException(ErrorCode.PRODUCT_BASE_PRICE_BELOW_PROMO);
         this.basePrice = newBasePrice;
     }
 
@@ -117,7 +115,7 @@ public class Product {
         if (newPromoPrice == null)
             return;
         if (newPromoPrice.isGreaterThan(this.basePrice))
-            throw new IllegalStateException("Promo price cannot be greater than base price.");
+            throw new DomainException(ErrorCode.PRODUCT_PROMO_PRICE_EXCEEDS_BASE);
         this.promoPrice = newPromoPrice;
     }
 
@@ -142,7 +140,7 @@ public class Product {
         boolean present = productVariants.stream()
                 .anyMatch(v -> v.getId().equals(variantId));
         if (present && productVariants.size() == 1)
-            throw new IllegalStateException("A product must keep at least one product variant.");
+            throw new DomainException(ErrorCode.PRODUCT_VARIANT_REQUIRED);
         productVariants.removeIf(v -> v.getId().equals(variantId));
     }
 
@@ -154,13 +152,13 @@ public class Product {
 
     public void addCreditPlan(UUID creditPlanId) {
         if (creditPlanId == null)
-            throw new IllegalArgumentException("Credit plan id cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_CREDIT_PLAN_ID_REQUIRED);
         creditPlans.add(creditPlanId);
     }
 
     public void removeCreditPlan(UUID creditPlanId) {
         if (creditPlans.contains(creditPlanId) && creditPlans.size() == 1)
-            throw new IllegalStateException("A product must keep at least one payment option.");
+            throw new DomainException(ErrorCode.PRODUCT_CREDIT_PLAN_REQUIRED);
         creditPlans.remove(creditPlanId);
     }
 
@@ -240,13 +238,13 @@ public class Product {
 
     private void validateNoDuplicateVariant(ProductVariant productVariant) {
         if (productVariant == null)
-            throw new IllegalArgumentException("Product variant cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_VARIANT_REQUIRED);
         UUID newId = productVariant.getId();
         String newSku = productVariant.getSku();
         boolean duplicate = productVariants.stream()
                 .anyMatch(v -> v.getId().equals(newId) || v.getSku().equals(newSku));
         if (duplicate)
-            throw new IllegalStateException("A product variant with the same id or SKU already exists.");
+            throw new DomainException(ErrorCode.PRODUCT_VARIANT_DUPLICATE);
     }
 
     private static void validateName(String name) {
@@ -256,37 +254,37 @@ public class Product {
 
     private static void validateBrand(UUID brandId) {
         if (brandId == null)
-            throw new IllegalArgumentException("Product brand cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_BRAND_REQUIRED);
     }
 
     private static void validateBasePrice(Money basePrice) {
         if (basePrice == null)
-            throw new IllegalArgumentException("Product base price cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_BASE_PRICE_REQUIRED);
     }
 
     private static void validateCategory(UUID categoryId) {
         if (categoryId == null)
-            throw new IllegalArgumentException("Category id cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_CATEGORY_REQUIRED);
     }
 
     private static void validateProductVariants(List<ProductVariant> productVariants) {
         if (productVariants == null || productVariants.isEmpty())
-            throw new IllegalArgumentException("Every product must have at least one product variant.");
+            throw new DomainException(ErrorCode.PRODUCT_VARIANT_REQUIRED);
     }
 
     private static void validateCreditPlans(Set<UUID> creditPlans) {
         if (creditPlans == null || creditPlans.isEmpty())
-            throw new IllegalArgumentException("Every product must have at least one payment option.");
+            throw new DomainException(ErrorCode.PRODUCT_CREDIT_PLAN_REQUIRED);
     }
 
     private static void validateAvailability(Availability availability) {
         if (availability == null)
-            throw new IllegalArgumentException("Availability must be selected for every product.");
+            throw new DomainException(ErrorCode.PRODUCT_AVAILABILITY_REQUIRED);
     }
 
     private static void validateCurrency(Currency currency) {
         if (currency == null)
-            throw new IllegalArgumentException("Product price currency cannot be null.");
+            throw new DomainException(ErrorCode.PRODUCT_CURRENCY_REQUIRED);
     }
     // </editor-fold>
 }
