@@ -4,6 +4,7 @@ import com.azercell.marketplace.catalog.application.port.BrandRepository;
 import com.azercell.marketplace.catalog.application.port.CategoryRepository;
 import com.azercell.marketplace.catalog.application.port.ColorRepository;
 import com.azercell.marketplace.catalog.application.port.CreditPlanApi;
+import com.azercell.marketplace.catalog.application.port.CreditPlanQuote;
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
 import com.azercell.marketplace.catalog.application.event.ProductCreatedEvent;
 import com.azercell.marketplace.catalog.application.service.ProductService;
@@ -30,6 +31,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -166,6 +168,18 @@ public class ProductServiceImpl implements ProductService {
                 .map(this::toColorOption)
                 .toList();
 
+        // Lightweight installment hint for the listing card ("from X/month, up to N months").
+        // The full per-plan breakdown is only built on the product detail endpoint.
+        var quotes = creditPlanApi.quoteFor(product.getSellingPrice().amount(), product.getCreditPlans());
+        var monthlyFrom = quotes.stream()
+                .map(CreditPlanQuote::monthlyInstallment)
+                .min(Comparator.naturalOrder())
+                .orElse(null);
+        var maxMonths = quotes.stream()
+                .map(CreditPlanQuote::months)
+                .max(Comparator.naturalOrder())
+                .orElse(null);
+
         return new ProductSummaryResponse(
                 product.getId(),
                 product.getSku(),
@@ -176,6 +190,8 @@ public class ProductServiceImpl implements ProductService {
                 product.getPromoPrice().map(Money::amount).orElse(null),
                 product.getSellingPrice().amount(),
                 product.getPriceCurrency() != null ? product.getPriceCurrency().name() : null,
+                monthlyFrom,
+                maxMonths,
                 product.getAvailability() != null ? product.getAvailability().name() : null,
                 resolveThumbnail(product),
                 colorOptions
@@ -239,7 +255,6 @@ public class ProductServiceImpl implements ProductService {
                 product.getCategoryId(),
                 product.getAvailability() != null ? product.getAvailability().name() : null,
                 product.getStatus() != null ? product.getStatus().name() : null,
-                product.getCreditPlans(),
                 installmentOptions,
                 variants
         );

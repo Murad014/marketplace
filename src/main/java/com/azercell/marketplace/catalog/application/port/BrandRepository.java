@@ -9,4 +9,7 @@ import java.util.UUID;
 public interface BrandRepository {
     List<Brand> getAllBranch();
     Optional<Brand> getBrandById(UUID id);
+    Brand save(Brand brand);
+    Optional<Brand> findByName(String name);
+    Optional<Brand> findByCode(String code);
 }

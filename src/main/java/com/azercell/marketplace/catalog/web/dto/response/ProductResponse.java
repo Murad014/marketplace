@@ -2,7 +2,6 @@ package com.azercell.marketplace.catalog.web.dto.response;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public record ProductResponse(
@@ -19,7 +18,6 @@ public record ProductResponse(
         UUID categoryId,
         String availability,
         String status,
-        Set<UUID> creditPlans,
         List<InstallmentOption> installmentOptions,
         List<VariantResponse> variants
 ) {

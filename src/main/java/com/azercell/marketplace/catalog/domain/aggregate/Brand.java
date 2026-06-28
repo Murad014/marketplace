@@ -61,7 +61,7 @@ public class Brand {
             throw new DomainException(ErrorCode.BRAND_CODE_REQUIRED);
         String normalized = code.trim().toUpperCase();
         if (!normalized.matches("^[A-Z0-9]{2,20}$"))
-            throw new RuntimeException("");
+            throw new DomainException(ErrorCode.BRAND_CODE_INVALID);
         return normalized;
     }
     // </editor-fold>
