@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -53,10 +52,12 @@ public class CreditPlanApiAdapter implements CreditPlanApi {
         if (price == null || planIds == null || planIds.isEmpty())
             return List.of();
 
-        return planIds.stream()
-                .map(creditPlanRepository::findById)
-                .flatMap(Optional::stream)
-                .filter(CreditPlan::isActive)
+        // Load the active plans once and filter in memory by the requested ids, rather than a
+        // findById per plan — keeps the product-list page from issuing a query per plan per product.
+        // (Unknown/inactive ids are naturally dropped; the active-plan set is small.)
+        Set<UUID> wanted = Set.copyOf(planIds);
+        return creditPlanRepository.findAllActive().stream()
+                .filter(plan -> wanted.contains(plan.getId()))
                 .sorted(Comparator.comparingInt(CreditPlan::getMonths))
                 .map(plan -> new CreditPlanQuote(
                         plan.getId(),

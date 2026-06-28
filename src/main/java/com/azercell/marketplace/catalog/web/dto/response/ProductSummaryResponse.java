@@ -14,6 +14,8 @@ public record ProductSummaryResponse(
         BigDecimal promoPrice,
         BigDecimal sellingPrice,
         String priceCurrency,
+        BigDecimal monthlyFrom,   // cheapest monthly installment across eligible plans ("from X/month"); null if none
+        Integer maxMonths,        // longest available term, for an "up to N months" hint; null if none
         String availability,
         String thumbnailUrl,
         List<ColorOptionResponse> colorOptions

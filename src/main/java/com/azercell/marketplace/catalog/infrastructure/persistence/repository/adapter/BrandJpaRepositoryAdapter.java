@@ -27,6 +27,24 @@ public class BrandJpaRepositoryAdapter implements BrandRepository {
         return brandEntity.flatMap(BrandMapper::toDomain);
     }
 
+    @Override
+    public Brand save(Brand brand) {
+        // Mapping to a fresh entity is safe for updates: BaseEntity's createdDate/createdBy are
+        // @Column(updatable = false), so a merge by id keeps the original audit fields.
+        var saved = repository.save(BrandMapper.toJpaEntity(brand));
+        return BrandMapper.toDomain(saved).orElseThrow();
+    }
+
+    @Override
+    public Optional<Brand> findByName(String name) {
+        return repository.findByNameIgnoreCase(name).flatMap(BrandMapper::toDomain);
+    }
+
+    @Override
+    public Optional<Brand> findByCode(String code) {
+        return repository.findByCodeIgnoreCase(code).flatMap(BrandMapper::toDomain);
+    }
+
     // <editor-fold desc="privateHelperMethods">
 
     // </editor-fold>
