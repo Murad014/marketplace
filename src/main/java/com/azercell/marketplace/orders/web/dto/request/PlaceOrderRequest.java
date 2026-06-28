@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 public record PlaceOrderRequest(
-        @NotNull UUID userId,          // placeholder until the users context exists
         UUID warehouseId,              // optional; defaults to the primary warehouse
         UUID creditPlanId,             // optional; null = pay in full, no financing agreement
         @NotEmpty @Valid List<Line> items

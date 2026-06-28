@@ -4,58 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Product ready credit plans, ready finance context related to catalog">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/azercell-marketplace.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/application/port/OrderCreditRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/application/service/OrderCreditService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/application/service/impl/OrderCreditServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/domain/Installment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/infrastructure/persistence/entity/InstallmentJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/infrastructure/persistence/entity/OrderCreditJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/infrastructure/persistence/mapper/OrderCreditMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/infrastructure/persistence/repository/OrderCreditJpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/infrastructure/persistence/repository/adapter/OrderCreditJpaRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/web/controller/OrderCreditAdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/web/dto/response/OrderCreditResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/port/CatalogApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/port/FinancingApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/port/InventoryApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/port/OrderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/port/OrderStatusHistoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/service/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/domain/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/domain/aggregate/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/domain/aggregate/OrderStatusHistory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/domain/vo/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/acl/CatalogApiAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/acl/FinancingApiAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/acl/InventoryApiAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/entity/OrderItemJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/entity/OrderJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/entity/OrderStatusHistoryJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/mapper/OrderMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/mapper/OrderStatusHistoryMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/repository/OrderJpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/repository/OrderStatusHistoryJpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/repository/adapter/OrderJpaRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/infrastructure/persistence/repository/adapter/OrderStatusHistoryJpaRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/controller/OrderAdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/request/PlaceOrderRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/request/UpdateOrderStatusRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/response/OrderResponse.java" afterDir="false" />
+    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Order Context is ready.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/config/security/KeycloakJwtRoleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/config/security/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/security/CurrentUserProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/application/ProvisionUserCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/application/port/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/application/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/application/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/domain/aggregate/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/domain/vo/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/infrastructure/persistence/entity/UserJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/infrastructure/persistence/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/infrastructure/persistence/repository/UserJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/infrastructure/persistence/repository/adapter/UserJpaRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/infrastructure/security/CurrentUserContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/infrastructure/security/CurrentUserProviderImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/web/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/users/web/dto/response/UserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/domain/aggregate/OrderCredit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/domain/aggregate/OrderCredit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/InventoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/impl/InventoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/service/impl/InventoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/application/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/request/PlaceOrderRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/request/PlaceOrderRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/request/UpdateOrderStatusRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/orders/web/dto/request/UpdateOrderStatusRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-qa.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-qa.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_az.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_az.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterDir="false" />
     </list>
@@ -104,17 +85,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.marketplace [:com.azercell.marketplace.MarketplaceApplication.main()].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Order-Context",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/muradguliyev/Desktop/MMM/azercell/marketplace/documents"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.marketplace [:com.azercell.marketplace.MarketplaceApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Auth-Context&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/muradguliyev/Desktop/MMM/azercell/marketplace/documents&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/documents" />
@@ -198,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782564255774</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: Order Context is ready.">
+      <option name="closed" value="true" />
+      <created>1782588336694</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1782588336694</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -207,6 +196,7 @@
     <MESSAGE value="feat: stock inventory event publisher for add is ready" />
     <MESSAGE value="feat: inventory movement is ready." />
     <MESSAGE value="feat: Product ready credit plans, ready finance context related to catalog" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Product ready credit plans, ready finance context related to catalog" />
+    <MESSAGE value="feat: Order Context is ready." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Order Context is ready." />
   </component>
 </project>

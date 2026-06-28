@@ -5,17 +5,51 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:8080" },
-    { "key": "brandId", "value": "550e8400-e29b-41d4-a716-446655440000" },
-    { "key": "categoryId", "value": "f552ad81-2dc4-4af6-9aa5-cd78de2772f2" },
-    { "key": "productId", "value": "" },
-    { "key": "variantId", "value": "" },
-    { "key": "imageId", "value": "" },
-    { "key": "warehouseId", "value": "" },
-    { "key": "creditPlanId", "value": "" },
-    { "key": "userId", "value": "11111111-1111-1111-1111-111111111111" },
-    { "key": "orderId", "value": "" },
-    { "key": "orderCreditId", "value": "" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "brandId",
+      "value": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    {
+      "key": "categoryId",
+      "value": "f552ad81-2dc4-4af6-9aa5-cd78de2772f2"
+    },
+    {
+      "key": "productId",
+      "value": ""
+    },
+    {
+      "key": "variantId",
+      "value": ""
+    },
+    {
+      "key": "imageId",
+      "value": ""
+    },
+    {
+      "key": "warehouseId",
+      "value": ""
+    },
+    {
+      "key": "creditPlanId",
+      "value": ""
+    },
+    {
+      "key": "orderId",
+      "value": ""
+    },
+    {
+      "key": "orderCreditId",
+      "value": ""
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    }
   ],
   "item": [
     {
@@ -42,16 +76,32 @@
           ],
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"name\": \"iPhone 15 Pro\",\n  \"promoPrice\": 1799.99,\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Apple iPhone 15 Pro, titanium, A17 Pro.\",\n  \"price\": 1999.99,\n  \"availability\": \"ORDER_NOW\",\n  \"productVariants\": [\n    {\n      \"colorName\": \"Natural Titanium\",\n      \"colorHexCode\": \"#8A8A8A\",\n      \"stockCount\": 25,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-natural-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"name\": \"back\", \"url\": \"https://cdn.example.com/ip15-natural-back.png\", \"altText\": \"back\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"colorName\": \"Blue Titanium\",\n      \"colorHexCode\": \"#3B4A5A\",\n      \"stockCount\": 10,\n      \"images\": [\n        { \"name\": \"front\", \"url\": \"https://cdn.example.com/ip15-blue-front.png\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ],\n  \"specifications\": [\n    { \"specificationKey\": \"RAM\", \"specificationValue\": \"8GB\" },\n    { \"specificationKey\": \"Storage\", \"specificationValue\": \"256GB\" }\n  ],\n  \"creditPlanIds\": []\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/products",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "products" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "products"
+              ]
             }
           }
         },
@@ -83,8 +133,16 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/products/{{productId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "products", "{{productId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "products",
+                "{{productId}}"
+              ]
             }
           }
         },
@@ -93,16 +151,33 @@
           "description": "Run 'Get Product By Id (admin)' first so variantId/imageId are captured. Keeps the existing variant, edits its image, adds a new variant; the Blue variant from create gets removed.",
           "request": {
             "method": "PUT",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"name\": \"iPhone 15 Pro (Updated)\",\n  \"brandId\": \"{{brandId}}\",\n  \"description\": \"Updated description.\",\n  \"price\": 1999.99,\n  \"promoPrice\": 1699.99,\n  \"categoryId\": \"{{categoryId}}\",\n  \"availability\": \"PRE_ORDER\",\n  \"variants\": [\n    {\n      \"id\": \"{{variantId}}\",\n      \"sku\": \"KEEP-EXISTING\",\n      \"colorName\": \"Jet Black\",\n      \"colorHexCode\": \"#111111\",\n      \"priceOverride\": null,\n      \"specifications\": [ { \"specificationKey\": \"Storage\", \"specificationValue\": \"512GB\" } ],\n      \"images\": [\n        { \"id\": \"{{imageId}}\", \"url\": \"https://cdn.example.com/ip15-black-front-v2.png\", \"name\": \"front-edited\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 },\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-black-side.png\", \"name\": \"side\", \"altText\": \"side\", \"isPrimary\": false, \"sort\": 1 }\n      ]\n    },\n    {\n      \"id\": null,\n      \"sku\": \"GREEN-NEW\",\n      \"colorName\": \"Green Titanium\",\n      \"colorHexCode\": \"#3A4A3A\",\n      \"priceOverride\": null,\n      \"specifications\": [],\n      \"images\": [\n        { \"id\": null, \"url\": \"https://cdn.example.com/ip15-green-front.png\", \"name\": \"front\", \"altText\": \"front\", \"isPrimary\": true, \"sort\": 0 }\n      ]\n    }\n  ],\n  \"creditPlanIds\": []\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/products/{{productId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "products", "{{productId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "products",
+                "{{productId}}"
+              ]
             }
           }
         }
@@ -118,11 +193,23 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/products?page=0&size=20",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "products" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ],
               "query": [
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "20" }
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
               ]
             }
           }
@@ -134,8 +221,15 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "products", "{{productId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "{{productId}}"
+              ]
             }
           }
         }
@@ -164,16 +258,32 @@
           ],
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"name\": \"Baku Warehouse\",\n  \"code\": \"BAKU-A\",\n  \"location\": \"Baku, Azerbaijan\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses"
+              ]
             }
           }
         },
@@ -184,11 +294,24 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses?page=0&size=20",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses"
+              ],
               "query": [
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "20" }
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
               ]
             }
           }
@@ -200,8 +323,16 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses",
+                "{{warehouseId}}"
+              ]
             }
           }
         },
@@ -209,16 +340,33 @@
           "name": "Update Warehouse",
           "request": {
             "method": "PUT",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"name\": \"Baku Central Warehouse\",\n  \"location\": \"Baku, Nizami St\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses",
+                "{{warehouseId}}"
+              ]
             }
           }
         },
@@ -229,8 +377,17 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/primary",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "primary" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses",
+                "{{warehouseId}}",
+                "primary"
+              ]
             }
           }
         },
@@ -241,8 +398,17 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/deactivate",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "deactivate" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses",
+                "{{warehouseId}}",
+                "deactivate"
+              ]
             }
           }
         },
@@ -253,8 +419,17 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/warehouses/{{warehouseId}}/activate",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "warehouses", "{{warehouseId}}", "activate" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "warehouses",
+                "{{warehouseId}}",
+                "activate"
+              ]
             }
           }
         }
@@ -262,7 +437,7 @@
     },
     {
       "name": "Inventory - Admin (Stock)",
-      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then use the requests here. Restock/Adjust need warehouseId — set the {{warehouseId}} variable (e.g. via Create/Set-Primary warehouse) to the PRIMARY warehouse so it matches the seeded rows.",
+      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then use the requests here. Restock/Adjust need warehouseId \u2014 set the {{warehouseId}} variable (e.g. via Create/Set-Primary warehouse) to the PRIMARY warehouse so it matches the seeded rows.",
       "item": [
         {
           "name": "Get Inventory By Variant",
@@ -271,10 +446,20 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/inventory?variantId={{variantId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "inventory" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "inventory"
+              ],
               "query": [
-                { "key": "variantId", "value": "{{variantId}}" }
+                {
+                  "key": "variantId",
+                  "value": "{{variantId}}"
+                }
               ]
             }
           }
@@ -283,16 +468,33 @@
           "name": "Restock (+amount)",
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"variantId\": \"{{variantId}}\",\n  \"amount\": 15,\n  \"reference\": \"PO-2026-001\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/inventory/restock",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "inventory", "restock" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "inventory",
+                "restock"
+              ]
             }
           }
         },
@@ -300,16 +502,33 @@
           "name": "Adjust (set absolute quantity)",
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"variantId\": \"{{variantId}}\",\n  \"newQuantity\": 30,\n  \"reference\": \"STOCKTAKE-Q2\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/inventory/adjust",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "inventory", "adjust" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "inventory",
+                "adjust"
+              ]
             }
           }
         },
@@ -320,12 +539,29 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/inventory/movements?variantId={{variantId}}&page=0&size=20",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "inventory", "movements" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "inventory",
+                "movements"
+              ],
               "query": [
-                { "key": "variantId", "value": "{{variantId}}" },
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "20" }
+                {
+                  "key": "variantId",
+                  "value": "{{variantId}}"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
               ]
             }
           }
@@ -354,16 +590,32 @@
           ],
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"name\": \"18 months special\",\n  \"months\": 18,\n  \"interestRate\": 8,\n  \"type\": \"OPTIONAL\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/credit-plans",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "credit-plans" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "credit-plans"
+              ]
             }
           }
         },
@@ -374,8 +626,15 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/credit-plans",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "credit-plans" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "credit-plans"
+              ]
             }
           }
         },
@@ -383,16 +642,33 @@
           "name": "Update Credit Plan",
           "request": {
             "method": "PUT",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"name\": \"18 months special\",\n  \"months\": 18,\n  \"interestRate\": 7.5,\n  \"type\": \"OPTIONAL\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/credit-plans/{{creditPlanId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "credit-plans", "{{creditPlanId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "credit-plans",
+                "{{creditPlanId}}"
+              ]
             }
           }
         },
@@ -403,8 +679,17 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/credit-plans/{{creditPlanId}}/deactivate",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "credit-plans", "{{creditPlanId}}", "deactivate" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "credit-plans",
+                "{{creditPlanId}}",
+                "deactivate"
+              ]
             }
           }
         },
@@ -415,8 +700,17 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/credit-plans/{{creditPlanId}}/activate",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "credit-plans", "{{creditPlanId}}", "activate" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "credit-plans",
+                "{{creditPlanId}}",
+                "activate"
+              ]
             }
           }
         },
@@ -427,10 +721,20 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/credit-plans/quote?price=1200",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "credit-plans", "quote" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "credit-plans",
+                "quote"
+              ],
               "query": [
-                { "key": "price", "value": "1200" }
+                {
+                  "key": "price",
+                  "value": "1200"
+                }
               ]
             }
           }
@@ -456,10 +760,20 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/order-credits?orderId={{orderId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "order-credits" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "order-credits"
+              ],
               "query": [
-                { "key": "orderId", "value": "{{orderId}}" }
+                {
+                  "key": "orderId",
+                  "value": "{{orderId}}"
+                }
               ]
             }
           }
@@ -472,8 +786,17 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/order-credits/{{orderCreditId}}/pay",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "order-credits", "{{orderCreditId}}", "pay" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "order-credits",
+                "{{orderCreditId}}",
+                "pay"
+              ]
             }
           }
         }
@@ -500,17 +823,33 @@
           ],
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
-              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"items\": [\n    { \"variantId\": \"{{variantId}}\", \"quantity\": 2 }\n  ]\n}"
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"items\": [\n    {\n      \"variantId\": \"{{variantId}}\",\n      \"quantity\": 2\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/orders",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "orders" ]
-            }
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            },
+            "description": "Place an order for the authenticated employee. The user is taken from the Keycloak token (or the local dev-user in the 'local' profile) \u2014 no userId in the body. 'warehouseId' is optional; omit it to use the primary warehouse."
           }
         },
         {
@@ -531,17 +870,33 @@
           ],
           "request": {
             "method": "POST",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
-              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"creditPlanId\": \"{{creditPlanId}}\",\n  \"items\": [\n    { \"variantId\": \"{{variantId}}\", \"quantity\": 1 }\n  ]\n}"
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"warehouseId\": \"{{warehouseId}}\",\n  \"creditPlanId\": \"{{creditPlanId}}\",\n  \"items\": [\n    {\n      \"variantId\": \"{{variantId}}\",\n      \"quantity\": 1\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/orders",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "orders" ]
-            }
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            },
+            "description": "Same as Place Order but with an installment plan. Order total is financed via the chosen credit plan."
           }
         },
         {
@@ -551,8 +906,15 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/orders/{{orderId}}",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "orders", "{{orderId}}" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "{{orderId}}"
+              ]
             }
           }
         },
@@ -562,15 +924,27 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/orders?userId={{userId}}&page=0&size=20",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "orders" ],
+              "raw": "{{baseUrl}}/api/v1/orders?page=0&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ],
               "query": [
-                { "key": "userId", "value": "{{userId}}" },
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "20" }
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
               ]
-            }
+            },
+            "description": "Lists orders for the authenticated user (resolved from the token / dev-user)."
           }
         },
         {
@@ -580,11 +954,24 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/orders?page=0&size=20",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "orders" ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "orders"
+              ],
               "query": [
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "20" }
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
               ]
             }
           }
@@ -594,18 +981,70 @@
           "description": "Allowed: PENDING -> CONFIRMED/CANCELLED; CONFIRMED -> PROCESSING/CANCELLED; PROCESSING -> SHIPPED/CANCELLED; SHIPPED -> DELIVERED. SHIPPED consumes reserved stock; CANCELLED (while held) releases it. Illegal transitions -> 400.",
           "request": {
             "method": "PATCH",
-            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "options": { "raw": { "language": "json" } },
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
               "raw": "{\n  \"status\": \"CONFIRMED\",\n  \"note\": \"payment received\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/admin/orders/{{orderId}}/status",
-              "host": [ "{{baseUrl}}" ],
-              "path": [ "api", "v1", "admin", "orders", "{{orderId}}", "status" ]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "orders",
+                "{{orderId}}",
+                "status"
+              ]
             }
           }
+        }
+      ]
+    },
+    {
+      "name": "Users (Identity)",
+      "description": "Backend is an OAuth2 resource server over RHSSO Keycloak. It does NOT handle login/registration/passwords \u2014 the frontend authenticates against Keycloak and sends the access token here as 'Authorization: Bearer <token>'. On the first authenticated request the local user mirror is JIT-provisioned, keyed by the OIDC 'sub' claim (users.ad_object_id). In the 'local' profile there is no token; a seeded dev user is used (app.security.dev-user-fallback=true).",
+      "item": [
+        {
+          "name": "Get Current User (me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Returns the current authenticated user (JIT-provisioned local mirror). In qa/prod enable the Authorization header and set {{accessToken}} to a Keycloak token; in local it works without a token."
+          },
+          "response": []
         }
       ]
     }

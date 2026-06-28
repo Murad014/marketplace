@@ -23,3 +23,6 @@ logging:
 
 app:
   base-url: http://localhost:8080
+  security:
+    # Local-only: no Keycloak token in dev, so stamp actions to a seeded dev user.
+    dev-user-fallback: true

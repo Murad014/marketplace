@@ -3,6 +3,7 @@ package com.azercell.marketplace.inventory.application.service.impl;
 import com.azercell.marketplace.common.domain.ErrorCode;
 import com.azercell.marketplace.common.dto.PageResponse;
 import com.azercell.marketplace.common.exception.DomainException;
+import com.azercell.marketplace.common.security.CurrentUserProvider;
 import com.azercell.marketplace.inventory.application.port.InventoryMovementRepository;
 import com.azercell.marketplace.inventory.application.port.InventoryRepository;
 import com.azercell.marketplace.inventory.application.service.InventoryService;
@@ -31,6 +32,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final InventoryMovementRepository movementRepository;
+    private final CurrentUserProvider currentUserProvider;
 
     @Override
     @Transactional
@@ -124,8 +126,8 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     private void recordMovement(UUID warehouseId, UUID variantId, int change, MovementType type, String reference) {
-        // TODO => performedBy is null until the users context exists.
-        movementRepository.save(InventoryMovement.record(warehouseId, variantId, change, type, reference, null));
+        var performedBy = currentUserProvider.currentUserId().orElse(null);
+        movementRepository.save(InventoryMovement.record(warehouseId, variantId, change, type, reference, performedBy));
     }
 
     private InventoryResponse toResponse(Inventory i) {

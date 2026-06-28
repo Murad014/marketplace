@@ -16,6 +16,13 @@ spring:
       hibernate:
         default_schema: public
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # RHSSO Keycloak realm issuer — backend validates incoming tokens against this.
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:https://rhsso.azercell.com/auth/realms/marketplace}
+
 
 logging:
   level:

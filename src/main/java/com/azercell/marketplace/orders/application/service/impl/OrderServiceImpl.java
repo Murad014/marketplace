@@ -3,6 +3,7 @@ package com.azercell.marketplace.orders.application.service.impl;
 import com.azercell.marketplace.common.domain.ErrorCode;
 import com.azercell.marketplace.common.dto.PageResponse;
 import com.azercell.marketplace.common.exception.DomainException;
+import com.azercell.marketplace.common.security.CurrentUserProvider;
 import com.azercell.marketplace.orders.application.port.CatalogApi;
 import com.azercell.marketplace.orders.application.port.FinancingApi;
 import com.azercell.marketplace.orders.application.port.InventoryApi;
@@ -38,10 +39,12 @@ public class OrderServiceImpl implements OrderService {
     private final CatalogApi catalogApi;
     private final InventoryApi inventoryApi;
     private final FinancingApi financingApi;
+    private final CurrentUserProvider currentUserProvider;
 
     @Override
     @Transactional
     public OrderResponse placeOrder(PlaceOrderRequest request) {
+        UUID userId = currentUserProvider.requireCurrentUserId();
         UUID warehouseId = request.warehouseId() != null ? request.warehouseId() : inventoryApi.primaryWarehouseId();
         if (warehouseId == null)
             throw new DomainException(ErrorCode.ORDER_NO_FULFILMENT_WAREHOUSE);
@@ -57,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
                     info.wasPromo(), info.promoLabel()));
         }
 
-        var order = Order.place(request.userId(), warehouseId, items, "AZN");
+        var order = Order.place(userId, warehouseId, items, "AZN");
 
         // Reserve stock for every line; insufficient stock rolls the whole order back.
         var reference = "ORDER:" + order.getOrderNumber();
@@ -67,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
 
         var saved = orderRepository.save(order);
         historyRepository.save(OrderStatusHistory.record(
-                saved.getId(), null, saved.getStatus(), "Order placed", request.userId()));
+                saved.getId(), null, saved.getStatus(), "Order placed", userId));
 
         // If the employee chose an installment plan, open the financing agreement on the order total.
         if (request.creditPlanId() != null) {
@@ -85,7 +88,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public PageResponse<OrderResponse> listByUser(UUID userId, int page, int size) {
+    public PageResponse<OrderResponse> listMyOrders(int page, int size) {
+        var userId = currentUserProvider.requireCurrentUserId();
         return PageResponse.of(orderRepository.findByUser(userId, pageable(page, size)).map(this::toResponse));
     }
 
@@ -115,7 +119,8 @@ public class OrderServiceImpl implements OrderService {
 
         var saved = orderRepository.save(order);
         historyRepository.save(OrderStatusHistory.record(
-                saved.getId(), from, saved.getStatus(), request.note(), request.changedBy()));
+                saved.getId(), from, saved.getStatus(), request.note(),
+                currentUserProvider.currentUserId().orElse(null)));
 
         return toResponse(saved);
     }
