@@ -1,6 +1,8 @@
 package com.azercell.marketplace.common.util;
 
 import com.azercell.marketplace.catalog.web.dto.SpecificationDto;
+import com.azercell.marketplace.common.domain.ErrorCode;
+import com.azercell.marketplace.common.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
@@ -27,7 +29,7 @@ public class CommonUtil {
                     ));
             return objectMapper.writeValueAsString(specsMap);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Failed to serialize specifications", e);
+            throw new DomainException(ErrorCode.SPECS_INVALID_JSON);
         }
     }
 

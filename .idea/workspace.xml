@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created.">
+    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Stock error fixed.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/CategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/CategoryJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/CategoryJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/CategoryJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/CategoryJpaRepositoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/vo/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/vo/Money.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/vo/Specs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/vo/Specs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/event/ProductCreatedEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/event/ProductCreatedEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/service/ProductImageUploaderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/service/ProductImageUploaderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/domain/vo/InterestRate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/financing/domain/vo/InterestRate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_az.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_az.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterDir="false" />
     </list>
@@ -68,7 +67,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Review-01",
+    "git-widget-placeholder": "Review-02-Exception-Messages-Translate",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/muradguliyev/Desktop/MMM/azercell/marketplace/documents"
   }
@@ -180,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782652657674</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: Stock error fixed.">
+      <option name="closed" value="true" />
+      <created>1782662351419</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1782662351419</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -192,6 +199,7 @@
     <MESSAGE value="feat: Order Context is ready." />
     <MESSAGE value="feat: Auth Context is ready but did not review and tested." />
     <MESSAGE value="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created." />
+    <MESSAGE value="feat: Stock error fixed." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Stock error fixed." />
   </component>
 </project>

@@ -1,6 +1,9 @@
 package com.azercell.marketplace.catalog.domain.vo;
 
 
+import com.azercell.marketplace.common.domain.ErrorCode;
+import com.azercell.marketplace.common.exception.DomainException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 public record Money(BigDecimal amount) {
@@ -13,10 +16,10 @@ public record Money(BigDecimal amount) {
 
     public Money {
         if (amount == null) {
-            throw new IllegalArgumentException("Amount cannot be null");
+            throw new DomainException(ErrorCode.MONEY_AMOUNT_REQUIRED);
         }
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
+            throw new DomainException(ErrorCode.MONEY_AMOUNT_NEGATIVE);
         }
         amount = amount.setScale(SCALE, ROUNDING);
     }
