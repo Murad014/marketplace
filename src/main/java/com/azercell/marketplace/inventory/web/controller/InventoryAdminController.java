@@ -23,7 +23,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/inventory")
-public class InventoryAdminController {
+public class InventoryAdminController implements InventoryApi {
 
     private final InventoryService inventoryService;
 

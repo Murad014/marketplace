@@ -25,7 +25,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/warehouses")
-public class WarehouseAdminController {
+public class WarehouseAdminController implements WarehouseApi {
 
     private final WarehouseService warehouseService;
 

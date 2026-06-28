@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/credit-plans")
-public class CreditPlanController {
+public class CreditPlanController implements CreditPlanQuoteApi {
 
     private final CreditPlanService creditPlanService;
 

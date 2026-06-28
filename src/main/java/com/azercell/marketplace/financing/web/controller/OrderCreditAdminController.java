@@ -17,7 +17,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/order-credits")
-public class OrderCreditAdminController {
+public class OrderCreditAdminController implements OrderCreditAdminApi {
 
     private final OrderCreditService orderCreditService;
 

@@ -24,7 +24,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/credit-plans")
-public class CreditPlanAdminController {
+public class CreditPlanAdminController implements CreditPlanAdminApi {
 
     private final CreditPlanService creditPlanService;
 
