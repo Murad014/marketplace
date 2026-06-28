@@ -70,6 +70,9 @@ public enum ErrorCode {
     ORDER_INVALID_STATUS_TRANSITION,
     ORDER_NO_FULFILMENT_WAREHOUSE,
 
+    // users
+    USER_NOT_FOUND,
+
     // general
     ENTITY_NOT_FOUND,
     INVALID_ARGUMENT,

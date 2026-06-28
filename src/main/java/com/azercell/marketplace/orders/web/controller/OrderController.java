@@ -39,9 +39,8 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<PageResponse<OrderResponse>>> listMine(
-            @RequestParam UUID userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
-        return ResponseEntity.ok(ApiResponse.ok(orderService.listByUser(userId, page, size)));
+        return ResponseEntity.ok(ApiResponse.ok(orderService.listMyOrders(page, size)));
     }
 }

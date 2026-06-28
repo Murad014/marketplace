@@ -41,6 +41,9 @@ dependencies {
 	// Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// Security — Keycloak (RHSSO) as OAuth2 resource server (validates Keycloak JWTs)
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
 	// h2database
 	implementation 'org.springframework.boot:spring-boot-h2console'
 	runtimeOnly 'com.h2database:h2'
