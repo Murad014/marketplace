@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Auth Context is ready but did not review and tested.">
+    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/postman/azercell-marketplace.postman_collection.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/BrandRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/BrandRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Brand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Brand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/financing/CreditPlanApiAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/financing/CreditPlanApiAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/BrandJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/BrandJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/BrandJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/BrandJpaRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ProductResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ProductResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ProductSummaryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/dto/response/ProductSummaryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/domain/aggregate/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/CategoryJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/CategoryJpaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/CategoryJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/CategoryJpaRepositoryAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/common/domain/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/event/ProductCreatedEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/inventory/application/event/ProductCreatedEventListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_az.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_az.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterDir="false" />
@@ -67,7 +64,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.marketplace [:com.azercell.marketplace.MarketplaceApplication.main()].executor": "Run",
+    "Gradle.marketplace [:com.azercell.marketplace.MarketplaceApplication.main()].executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -175,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782649609113</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created.">
+      <option name="closed" value="true" />
+      <created>1782652657674</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1782652657674</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -186,6 +191,7 @@
     <MESSAGE value="feat: Product ready credit plans, ready finance context related to catalog" />
     <MESSAGE value="feat: Order Context is ready." />
     <MESSAGE value="feat: Auth Context is ready but did not review and tested." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Auth Context is ready but did not review and tested." />
+    <MESSAGE value="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Product Response details and list installment changed by not plan ID to object. Missing the Brand API and Created." />
   </component>
 </project>

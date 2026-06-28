@@ -2,11 +2,12 @@ package com.azercell.marketplace.catalog.infrastructure.persistence.repository.a
 
 import com.azercell.marketplace.catalog.application.port.CategoryRepository;
 import com.azercell.marketplace.catalog.domain.aggregate.Category;
-import com.azercell.marketplace.catalog.infrastructure.persistence.entity.CategoryJpaEntity;
+import com.azercell.marketplace.catalog.infrastructure.persistence.mapper.CategoryMapper;
 import com.azercell.marketplace.catalog.infrastructure.persistence.repository.CategoryJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,36 +18,31 @@ public class CategoryJpaRepositoryAdapter implements CategoryRepository {
 
     @Override
     public boolean existsById(UUID id) {
-        return false;
+        return id != null && categoryJpaRepository.existsById(id);
     }
 
     @Override
     public Optional<Category> getCategoryById(UUID id) {
-        var categoryEntity = categoryJpaRepository.findById(id);
-        return categoryEntity.map(this::toDomain);
+        return categoryJpaRepository.findById(id).flatMap(CategoryMapper::toDomain);
     }
 
-    //<editor-fold desc="privateHelperMethods">
-    private Category toDomain(CategoryJpaEntity entity) {
-        if (entity == null) return null;
-
-        Category category = new Category(
-                entity.getId(),
-                entity.getName(),
-                entity.getSlug(),
-                entity.getDescription(),
-                entity.getStatus(),
-                null,
-                null
-        );
-
-        if (entity.getChildren() != null) {
-            for (CategoryJpaEntity child : entity.getChildren()) {
-                category.addChild(toDomain(child));
-            }
-        }
-
-        return category;
+    @Override
+    public List<Category> getAllCategories() {
+        return CategoryMapper.toDomainList(categoryJpaRepository.findAll());
     }
-    // </editor-fold>
+
+    @Override
+    public Optional<Category> findBySlug(String slug) {
+        return categoryJpaRepository.findBySlugIgnoreCase(slug).flatMap(CategoryMapper::toDomain);
+    }
+
+    @Override
+    public Category save(Category category, UUID parentId) {
+        // Map scalars to a fresh entity, then wire the parent FK via a managed reference (no full load).
+        // createdDate/createdBy are @Column(updatable = false), so a merge by id keeps the audit fields.
+        var entity = CategoryMapper.toJpaEntity(category);
+        entity.setParent(parentId != null ? categoryJpaRepository.getReferenceById(parentId) : null);
+        var saved = categoryJpaRepository.save(entity);
+        return CategoryMapper.toDomain(saved).orElseThrow();
+    }
 }
