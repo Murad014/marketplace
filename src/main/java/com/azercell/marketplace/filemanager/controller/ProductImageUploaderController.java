@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/files")
-public class ProductImageUploaderController {
+public class ProductImageUploaderController implements FileUploadApi {
 
     private final ProductImageUploaderService uploaderService;
 

@@ -23,7 +23,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/categories")
-public class CategoryAdminController {
+public class CategoryAdminController implements CategoryApi {
 
     private final CategoryService categoryService;
 

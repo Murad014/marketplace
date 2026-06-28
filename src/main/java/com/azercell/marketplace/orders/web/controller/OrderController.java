@@ -23,7 +23,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/orders")
-public class OrderController {
+public class OrderController implements OrderApi {
 
     private final OrderService orderService;
 

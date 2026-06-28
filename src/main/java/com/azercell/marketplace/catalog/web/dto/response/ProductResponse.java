@@ -1,9 +1,12 @@
 package com.azercell.marketplace.catalog.web.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+@Schema(description = "Full product detail: pricing, computed installment options, and colour variants with images")
 public record ProductResponse(
         UUID id,
         String sku,

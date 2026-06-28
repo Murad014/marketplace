@@ -23,7 +23,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/brands")
-public class BrandAdminController {
+public class BrandAdminController implements BrandApi {
 
     private final BrandService brandService;
 

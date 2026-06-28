@@ -22,7 +22,7 @@ import static com.azercell.marketplace.common.dto.MessageCodes.UPDATED_SUCCESSFU
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/products")
-public class ProductAdminController {
+public class ProductAdminController implements ProductAdminApi {
     private final ProductService productService;
     private final MessageSource messageSource;
 
