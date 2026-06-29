@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://pgdbtest1.azercell.com:5416/marketplace_db_qa
-    username: myuser
-    password: mysecretpassword
+    url: jdbc:pos****************place_db_qa
+    username: m****
+    password: mys******rd
     driver-class-name: org.postgresql.Driver
 
   jpa:
