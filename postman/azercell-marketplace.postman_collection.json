@@ -237,6 +237,30 @@
               ],
               "query": [
                 {
+                  "key": "name",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Case-insensitive partial match on product name (e.g. iphone)"
+                },
+                {
+                  "key": "categoryId",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Filter by category id (UUID)"
+                },
+                {
+                  "key": "minPrice",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Min selling price, inclusive (promo-aware)"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "",
+                  "disabled": true,
+                  "description": "Max selling price, inclusive (promo-aware)"
+                },
+                {
                   "key": "page",
                   "value": "0"
                 },
@@ -246,7 +270,7 @@
                 }
               ]
             },
-            "description": "Storefront product list (paginated). Each card now includes an installment hint: `monthlyFrom` (cheapest monthly installment across the product's eligible credit plans \u2014 the \"from X/month\" badge) and `maxMonths` (longest available term). Both are null when the product has no eligible plans. `colorOptions` drives the colour swatches (click a swatch -> show its `imageUrl`)."
+            "description": "Storefront product list (paginated). Each card now includes an installment hint: `monthlyFrom` (cheapest monthly installment across the product's eligible credit plans \u2014 the \"from X/month\" badge) and `maxMonths` (longest available term). Both are null when the product has no eligible plans. `colorOptions` drives the colour swatches (click a swatch -> show its `imageUrl`).\n\nOptional filters (stackable): name (partial, case-insensitive), categoryId, minPrice, maxPrice. Price bounds apply to the effective selling price (COALESCE(promo, base)). Enable the disabled query params to use them."
           },
           "response": [
             {

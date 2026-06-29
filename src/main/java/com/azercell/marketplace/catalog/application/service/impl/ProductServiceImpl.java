@@ -5,6 +5,7 @@ import com.azercell.marketplace.catalog.application.port.CategoryRepository;
 import com.azercell.marketplace.catalog.application.port.ColorRepository;
 import com.azercell.marketplace.catalog.application.port.CreditPlanApi;
 import com.azercell.marketplace.catalog.application.port.CreditPlanQuote;
+import com.azercell.marketplace.catalog.application.port.ProductFilter;
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
 import com.azercell.marketplace.catalog.application.event.ProductCreatedEvent;
 import com.azercell.marketplace.catalog.application.service.ProductService;
@@ -154,13 +155,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public PageResponse<ProductSummaryResponse> listActiveProducts(int page, int size) {
+    public PageResponse<ProductSummaryResponse> listActiveProducts(ProductFilter filter, int page, int size) {
+        validatePriceRange(filter);
         int safePage = Math.max(page, 0);
         int safeSize = size <= 0 ? 20 : Math.min(size, MAX_PAGE_SIZE);
         Pageable pageable = PageRequest.of(safePage, safeSize, Sort.by("createdDate").descending());
 
-        var result = productRepository.findActive(pageable).map(this::toSummary);
+        var result = productRepository.findActive(filter, pageable).map(this::toSummary);
         return PageResponse.of(result);
+    }
+
+    private void validatePriceRange(ProductFilter filter) {
+        if (filter == null) return;
+        if (filter.minPrice() != null && filter.minPrice().signum() < 0)
+            throw new DomainException(ErrorCode.INVALID_ARGUMENT);
+        if (filter.maxPrice() != null && filter.maxPrice().signum() < 0)
+            throw new DomainException(ErrorCode.INVALID_ARGUMENT);
+        if (filter.minPrice() != null && filter.maxPrice() != null
+                && filter.minPrice().compareTo(filter.maxPrice()) > 0)
+            throw new DomainException(ErrorCode.INVALID_ARGUMENT);
     }
 
     private ProductSummaryResponse toSummary(Product product) {

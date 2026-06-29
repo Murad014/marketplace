@@ -13,7 +13,7 @@ public interface ProductRepository {
     void update(Product product, Brand brand);
     Optional<Product> findById(UUID id);
     Optional<Product> findByVariantId(UUID variantId);
-    Page<Product> findActive(Pageable pageable);
+    Page<Product> findActive(ProductFilter filter, Pageable pageable);
     boolean existsBySku(String sku);
 
     void deleteById(UUID id);
