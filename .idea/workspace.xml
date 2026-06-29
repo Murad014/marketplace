@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: RHSSO setting implemented.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/spec/ProductSpecifications.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/port/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/application/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/ProductJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/infrastructure/persistence/repository/adapter/ProductJpaRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/controller/ProductApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/controller/ProductApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/catalog/web/controller/ProductController.java" afterDir="false" />
-    </list>
+    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: Implemented Product List filter by , category, name, min and max prices" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -211,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782711432370</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat: Implemented Product List filter by , category, name, min and max prices">
+      <option name="closed" value="true" />
+      <created>1782712571949</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1782712571949</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -227,6 +224,7 @@
     <MESSAGE value="feat: All messages changed to dynamic(AZ &amp;&amp; END)" />
     <MESSAGE value="feat: Swagger implemented" />
     <MESSAGE value="feat: RHSSO setting implemented." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: RHSSO setting implemented." />
+    <MESSAGE value="feat: Implemented Product List filter by , category, name, min and max prices" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Implemented Product List filter by , category, name, min and max prices" />
   </component>
 </project>
