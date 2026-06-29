@@ -1,11 +1,12 @@
 package com.azercell.marketplace.catalog.infrastructure.persistence.repository.adapter;
 
+import com.azercell.marketplace.catalog.application.port.ProductFilter;
 import com.azercell.marketplace.catalog.application.port.ProductRepository;
 import com.azercell.marketplace.catalog.domain.aggregate.Brand;
 import com.azercell.marketplace.catalog.domain.aggregate.Product;
-import com.azercell.marketplace.catalog.domain.vo.Status;
 import com.azercell.marketplace.catalog.infrastructure.persistence.mapper.ProductMapper;
 import com.azercell.marketplace.catalog.infrastructure.persistence.repository.ProductJpaRepository;
+import com.azercell.marketplace.catalog.infrastructure.persistence.repository.spec.ProductSpecifications;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,8 +46,8 @@ public class ProductJpaRepositoryAdapter implements ProductRepository {
     }
 
     @Override
-    public Page<Product> findActive(Pageable pageable) {
-        return productJpaRepository.findByStatus(Status.ACTIVE, pageable)
+    public Page<Product> findActive(ProductFilter filter, Pageable pageable) {
+        return productJpaRepository.findAll(ProductSpecifications.activeMatching(filter), pageable)
                 .map(ProductMapper::toDomain);
     }
 
