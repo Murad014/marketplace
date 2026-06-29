@@ -5,8 +5,11 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
@@ -16,6 +19,10 @@ public class OpenApiConfig {
     @Bean
     OpenAPI marketplaceOpenAPI() {
         return new OpenAPI()
+                // Relative server: Swagger "Try it out" calls the SAME origin the UI was loaded from,
+                // so it works on localhost, qa and prod alike — and behind a TLS proxy (no hardcoded
+                // localhost, no http/https mismatch, no cross-origin CORS).
+                .servers(List.of(new Server().url("/").description("Same origin as the Swagger UI")))
                 .info(new Info()
                         .title("Azercell Marketplace API")
                         .description("""
