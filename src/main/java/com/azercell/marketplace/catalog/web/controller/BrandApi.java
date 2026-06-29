@@ -15,7 +15,7 @@ import java.util.UUID;
 
 /**
  * OpenAPI documentation for the admin brand endpoints. Kept separate from the controller so the
- * controller carries only routing/logic; springdoc merges these annotations by method signature.
+ * controller carries only routing/logic; springdoc merges these annotations by method signature..
  */
 @Tag(name = "Brands (Admin)", description = "Create, update and read product brands (codes are uppercased and unique).")
 public interface BrandApi {
