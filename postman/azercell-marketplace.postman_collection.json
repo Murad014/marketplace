@@ -49,6 +49,11 @@
       "key": "accessToken",
       "value": "",
       "type": "string"
+    },
+    {
+      "key": "faqId",
+      "value": "",
+      "type": "string"
     }
   ],
   "item": [
@@ -144,7 +149,7 @@
                 "{{productId}}"
               ]
             },
-            "description": "Storefront product detail. `installmentOptions` is the full per-plan breakdown computed for this product's selling price (months, monthlyInstallment, totalPayable, interestRate, name) \u2014 render the installment table directly, no extra calls needed. NOTE: the old raw `creditPlans` (Set<UUID>) field was removed; use `installmentOptions` instead."
+            "description": "Storefront product detail. `installmentOptions` is the full per-plan breakdown computed for this product's selling price (months, monthlyInstallment, totalPayable, interestRate, name) — render the installment table directly, no extra calls needed. NOTE: the old raw `creditPlans` (Set<UUID>) field was removed; use `installmentOptions` instead."
           },
           "response": [
             {
@@ -270,7 +275,7 @@
                 }
               ]
             },
-            "description": "Storefront product list (paginated). Each card now includes an installment hint: `monthlyFrom` (cheapest monthly installment across the product's eligible credit plans \u2014 the \"from X/month\" badge) and `maxMonths` (longest available term). Both are null when the product has no eligible plans. `colorOptions` drives the colour swatches (click a swatch -> show its `imageUrl`).\n\nOptional filters (stackable): name (partial, case-insensitive), categoryId, minPrice, maxPrice. Price bounds apply to the effective selling price (COALESCE(promo, base)). Enable the disabled query params to use them."
+            "description": "Storefront product list (paginated). Each card now includes an installment hint: `monthlyFrom` (cheapest monthly installment across the product's eligible credit plans — the \"from X/month\" badge) and `maxMonths` (longest available term). Both are null when the product has no eligible plans. `colorOptions` drives the colour swatches (click a swatch -> show its `imageUrl`).\n\nOptional filters (stackable): name (partial, case-insensitive), categoryId, minPrice, maxPrice. Price bounds apply to the effective selling price (COALESCE(promo, base)). Enable the disabled query params to use them."
           },
           "response": [
             {
@@ -331,7 +336,7 @@
                 "{{productId}}"
               ]
             },
-            "description": "Storefront product detail. `installmentOptions` is the full per-plan breakdown computed for this product's selling price (months, monthlyInstallment, totalPayable, interestRate, name) \u2014 render the installment table directly, no extra calls needed. NOTE: the old raw `creditPlans` (Set<UUID>) field was removed; use `installmentOptions` instead."
+            "description": "Storefront product detail. `installmentOptions` is the full per-plan breakdown computed for this product's selling price (months, monthlyInstallment, totalPayable, interestRate, name) — render the installment table directly, no extra calls needed. NOTE: the old raw `creditPlans` (Set<UUID>) field was removed; use `installmentOptions` instead."
           },
           "response": [
             {
@@ -645,6 +650,208 @@
       ]
     },
     {
+      "name": "Content - Admin (FAQ)",
+      "description": "Admin FAQ management. Entries are bilingual (AZ + EN) and shown on the public storefront. `group` is an optional section label (null/blank = ungrouped); `displayOrder` controls ordering (ascending). On create the entry is active by default. On update all fields apply: `displayOrder` and `active` are optional (null leaves them unchanged). Requires an ADMIN token in qa/prod (in the local profile no token is needed). Errors: FAQ_NOT_FOUND, FAQ_QUESTION_REQUIRED, FAQ_ANSWER_REQUIRED.",
+      "item": [
+        {
+          "name": "Create FAQ",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/faqs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "faqs"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionAz\": \"Sifarişimi necə izləyə bilərəm?\",\n  \"questionEn\": \"How can I track my order?\",\n  \"answerAz\": \"Sifarişlərim səhifəsindən sifarişinizin statusunu izləyə bilərsiniz.\",\n  \"answerEn\": \"You can track your order status from the My Orders page.\",\n  \"group\": \"Orders\",\n  \"displayOrder\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Creates a bilingual FAQ entry (active by default). Returns 201 + the created entry (both languages)."
+          },
+          "response": []
+        },
+        {
+          "name": "Update FAQ",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/faqs/{{faqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "faqs",
+                "{{faqId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionAz\": \"Sifarişimi necə izləyə bilərəm?\",\n  \"questionEn\": \"How do I track my order?\",\n  \"answerAz\": \"Sifarişlərim səhifəsindən statusu real vaxtda izləyin.\",\n  \"answerEn\": \"Track the status in real time from the My Orders page.\",\n  \"group\": \"Orders\",\n  \"displayOrder\": 10,\n  \"active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Full update. displayOrder/active optional (null leaves unchanged). Set active=false to hide from the public list without deleting."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete FAQ",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/faqs/{{faqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "faqs",
+                "{{faqId}}"
+              ]
+            },
+            "description": "Deletes the entry. 400 FAQ_NOT_FOUND if it does not exist."
+          },
+          "response": []
+        },
+        {
+          "name": "Get FAQ By Id (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/faqs/{{faqId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "faqs",
+                "{{faqId}}"
+              ]
+            },
+            "description": "Admin view: both languages + active flag, including inactive entries."
+          },
+          "response": []
+        },
+        {
+          "name": "List FAQs (admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/faqs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "faqs"
+              ]
+            },
+            "description": "Admin view: all entries (active + inactive), ordered by displayOrder then creation time."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Content - Public (FAQ)",
+      "description": "Public, employee-facing FAQ listing. Only active entries, ordered by displayOrder. Content is localized via the Accept-Language header: 'az' -> Azerbaijani, anything else (or omitted) -> English. No token required.",
+      "item": [
+        {
+          "name": "List FAQs (public, EN)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faqs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faqs"
+              ]
+            },
+            "description": "Active FAQ entries in English (default when Accept-Language is not 'az')."
+          },
+          "response": []
+        },
+        {
+          "name": "List FAQs (public, AZ)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "az",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/faqs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "faqs"
+              ]
+            },
+            "description": "Active FAQ entries in Azerbaijani (Accept-Language: az)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Inventory - Admin (Warehouses)",
       "item": [
         {
@@ -846,7 +1053,7 @@
     },
     {
       "name": "Inventory - Admin (Stock)",
-      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then use the requests here. Restock/Adjust need warehouseId \u2014 set the {{warehouseId}} variable (e.g. via Create/Set-Primary warehouse) to the PRIMARY warehouse so it matches the seeded rows.",
+      "description": "Stock is seeded automatically when a product is created (the variant's stockCount is seeded into the PRIMARY warehouse via an in-JVM event). Set a primary warehouse first (Warehouses -> Set Primary), then create a product, then run 'Get Product By Id (admin)' to capture variantId, then use the requests here. Restock/Adjust need warehouseId — set the {{warehouseId}} variable (e.g. via Create/Set-Primary warehouse) to the PRIMARY warehouse so it matches the seeded rows.",
       "item": [
         {
           "name": "Get Inventory By Variant",
@@ -1258,7 +1465,7 @@
                 "orders"
               ]
             },
-            "description": "Place an order for the authenticated employee. The user is taken from the Keycloak token (or the local dev-user in the 'local' profile) \u2014 no userId in the body. 'warehouseId' is optional; omit it to use the primary warehouse."
+            "description": "Place an order for the authenticated employee. The user is taken from the Keycloak token (or the local dev-user in the 'local' profile) — no userId in the body. 'warehouseId' is optional; omit it to use the primary warehouse."
           }
         },
         {
@@ -1425,7 +1632,7 @@
     },
     {
       "name": "Users (Identity)",
-      "description": "Backend is an OAuth2 resource server over RHSSO Keycloak. It does NOT handle login/registration/passwords \u2014 the frontend authenticates against Keycloak and sends the access token here as 'Authorization: Bearer <token>'. On the first authenticated request the local user mirror is JIT-provisioned, keyed by the OIDC 'sub' claim (users.ad_object_id). In the 'local' profile there is no token; a seeded dev user is used (app.security.dev-user-fallback=true).",
+      "description": "Backend is an OAuth2 resource server over RHSSO Keycloak. It does NOT handle login/registration/passwords — the frontend authenticates against Keycloak and sends the access token here as 'Authorization: Bearer <token>'. On the first authenticated request the local user mirror is JIT-provisioned, keyed by the OIDC 'sub' claim (users.ad_object_id). In the 'local' profile there is no token; a seeded dev user is used (app.security.dev-user-fallback=true).",
       "item": [
         {
           "name": "Get Current User (me)",

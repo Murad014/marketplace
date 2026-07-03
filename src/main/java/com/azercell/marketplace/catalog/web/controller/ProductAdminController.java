@@ -1,6 +1,7 @@
 package com.azercell.marketplace.catalog.web.controller;
 
 import com.azercell.marketplace.catalog.application.service.ProductService;
+import com.azercell.marketplace.catalog.web.controller.api.ProductAdminApi;
 import com.azercell.marketplace.catalog.web.dto.request.AddProductRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateProductRequest;
 import com.azercell.marketplace.common.dto.ApiResponse;

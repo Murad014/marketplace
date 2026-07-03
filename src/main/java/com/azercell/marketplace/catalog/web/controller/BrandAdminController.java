@@ -1,6 +1,7 @@
 package com.azercell.marketplace.catalog.web.controller;
 
 import com.azercell.marketplace.catalog.application.service.BrandService;
+import com.azercell.marketplace.catalog.web.controller.api.BrandApi;
 import com.azercell.marketplace.catalog.web.dto.request.CreateBrandRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateBrandRequest;
 import com.azercell.marketplace.catalog.web.dto.response.BrandResponse;

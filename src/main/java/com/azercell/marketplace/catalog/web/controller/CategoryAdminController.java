@@ -1,6 +1,7 @@
 package com.azercell.marketplace.catalog.web.controller;
 
 import com.azercell.marketplace.catalog.application.service.CategoryService;
+import com.azercell.marketplace.catalog.web.controller.api.CategoryApi;
 import com.azercell.marketplace.catalog.web.dto.request.CreateCategoryRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateCategoryRequest;
 import com.azercell.marketplace.catalog.web.dto.response.CategoryResponse;

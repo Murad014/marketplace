@@ -2,6 +2,7 @@ package com.azercell.marketplace.catalog.web.controller;
 
 import com.azercell.marketplace.catalog.application.port.ProductFilter;
 import com.azercell.marketplace.catalog.application.service.ProductService;
+import com.azercell.marketplace.catalog.web.controller.api.ProductApi;
 import com.azercell.marketplace.catalog.web.dto.response.ProductResponse;
 import com.azercell.marketplace.catalog.web.dto.response.ProductSummaryResponse;
 import com.azercell.marketplace.common.dto.ApiResponse;
