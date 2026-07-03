@@ -96,6 +96,12 @@ public enum ErrorCode {
     ORDER_INVALID_STATUS_TRANSITION,
     ORDER_NO_FULFILMENT_WAREHOUSE,
 
+    // content (FAQ)
+    FAQ_ID_REQUIRED,
+    FAQ_QUESTION_REQUIRED,
+    FAQ_ANSWER_REQUIRED,
+    FAQ_NOT_FOUND,
+
     // users
     USER_NOT_FOUND,
 

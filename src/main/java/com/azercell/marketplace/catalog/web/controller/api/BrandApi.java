@@ -1,4 +1,4 @@
-package com.azercell.marketplace.catalog.web.controller;
+package com.azercell.marketplace.catalog.web.controller.api;
 
 import com.azercell.marketplace.catalog.web.dto.request.CreateBrandRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateBrandRequest;
