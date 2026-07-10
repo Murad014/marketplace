@@ -121,7 +121,7 @@ public class ProductImageUploaderService {
 
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return baseUrl + "/images/" + uniqueFilename;
+            return "images/" + uniqueFilename;
 
         } catch (IOException e) {
             throw new RuntimeException("IO Error tracking: Failed to store image file.", e);
