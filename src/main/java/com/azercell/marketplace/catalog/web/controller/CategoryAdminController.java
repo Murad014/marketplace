@@ -4,7 +4,7 @@ import com.azercell.marketplace.catalog.application.service.CategoryService;
 import com.azercell.marketplace.catalog.web.controller.api.CategoryApi;
 import com.azercell.marketplace.catalog.web.dto.request.CreateCategoryRequest;
 import com.azercell.marketplace.catalog.web.dto.request.UpdateCategoryRequest;
-import com.azercell.marketplace.catalog.web.dto.response.CategoryResponse;
+import com.azercell.marketplace.catalog.web.dto.response.CategoryAdminResponse;
 import com.azercell.marketplace.common.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,23 +29,23 @@ public class CategoryAdminController implements CategoryApi {
     private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CategoryResponse>> create(@Valid @RequestBody CreateCategoryRequest request) {
+    public ResponseEntity<ApiResponse<CategoryAdminResponse>> create(@Valid @RequestBody CreateCategoryRequest request) {
         return new ResponseEntity<>(ApiResponse.created(categoryService.createCategory(request)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<CategoryResponse>> update(@PathVariable UUID id,
+    public ResponseEntity<ApiResponse<CategoryAdminResponse>> update(@PathVariable UUID id,
                                                                @Valid @RequestBody UpdateCategoryRequest request) {
         return ResponseEntity.ok(ApiResponse.ok(categoryService.updateCategory(id, request)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<CategoryResponse>> getById(@PathVariable UUID id) {
+    public ResponseEntity<ApiResponse<CategoryAdminResponse>> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(ApiResponse.ok(categoryService.getCategoryById(id)));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<CategoryResponse>>> list() {
+    public ResponseEntity<ApiResponse<List<CategoryAdminResponse>>> list() {
         return ResponseEntity.ok(ApiResponse.ok(categoryService.getAllCategories()));
     }
 }

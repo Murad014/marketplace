@@ -9,52 +9,62 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Category aggregate. The parent link is kept as an id ({@code parentId}, null = root) rather than a
- * loaded subtree — the hierarchy invariants (parent exists, no self/circular reference) are enforced
- * by the application service, which can walk ancestors via the repository.
+ * Category aggregate. Display text is stored bilingually (AZ + EN) — the public read picks the
+ * locale-appropriate name/description, admins edit both. The {@code slug} is language-neutral (one
+ * value, used in URLs). The parent link is an id ({@code parentId}, null = root); hierarchy invariants
+ * (parent exists, no self/circular reference) are enforced by the application service.
  */
 @Getter
 public class Category {
 
     private final UUID id;
-    private String name;
+    private String nameAz;
+    private String nameEn;
     private String slug;
-    private String description;
+    private String descriptionAz;
+    private String descriptionEn;
     private Status status;
     private UUID parentId;   // null = root category
 
-    private Category(UUID id, String name, String slug, String description, Status status, UUID parentId) {
+    private Category(UUID id, String nameAz, String nameEn, String slug,
+                     String descriptionAz, String descriptionEn, Status status, UUID parentId) {
         this.id = validateId(id);
-        this.name = normalizeName(name);
+        this.nameAz = requireName(nameAz);
+        this.nameEn = requireName(nameEn);
         this.slug = normalizeSlug(slug);
-        this.description = description;
+        this.descriptionAz = descriptionAz;
+        this.descriptionEn = descriptionEn;
         this.status = status == null ? Status.ACTIVE : status;
         this.parentId = parentId;
     }
 
-    public static Category create(String name, String slug, String description, UUID parentId) {
-        return new Category(UUID.randomUUID(), name, slug, description, Status.ACTIVE, parentId);
+    public static Category create(String nameAz, String nameEn, String slug,
+                                  String descriptionAz, String descriptionEn, UUID parentId) {
+        return new Category(UUID.randomUUID(), nameAz, nameEn, slug,
+                descriptionAz, descriptionEn, Status.ACTIVE, parentId);
     }
 
-    public static Category rehydrate(UUID id, String name, String slug, String description,
-                                     Status status, UUID parentId) {
-        return new Category(id, name, slug, description, status, parentId);
+    public static Category rehydrate(UUID id, String nameAz, String nameEn, String slug,
+                                     String descriptionAz, String descriptionEn, Status status, UUID parentId) {
+        return new Category(id, nameAz, nameEn, slug, descriptionAz, descriptionEn, status, parentId);
     }
 
     public boolean isRoot() {
         return parentId == null;
     }
 
-    public void changeName(String name) {
-        this.name = normalizeName(name);
+    public void changeName(String nameAz, String nameEn) {
+        this.nameAz = requireName(nameAz);
+        this.nameEn = requireName(nameEn);
     }
 
     public void changeSlug(String slug) {
         this.slug = normalizeSlug(slug);
     }
 
-    public void changeDescription(String description) {
-        this.description = description;
+    public void changeDescription(String descriptionAz, String descriptionEn) {
+        this.descriptionAz = descriptionAz;
+        this.descriptionEn = descriptionEn;
     }
 
     /** Re-parent (null = make root). Self-reference is rejected here; circular checks live in the service. */
@@ -78,7 +88,7 @@ public class Category {
         return id;
     }
 
-    private static String normalizeName(String name) {
+    private static String requireName(String name) {
         if (name == null || name.isBlank())
             throw new DomainException(ErrorCode.CATEGORY_NAME_REQUIRED);
         return name.trim();

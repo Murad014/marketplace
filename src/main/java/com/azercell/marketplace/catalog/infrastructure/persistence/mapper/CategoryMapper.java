@@ -10,31 +10,36 @@ public class CategoryMapper {
 
     public static Optional<Category> toDomain(CategoryJpaEntity entity) {
         if (entity == null) return Optional.empty();
-        return Optional.of(Category.rehydrate(
-                entity.getId(),
-                entity.getName(),
-                entity.getSlug(),
-                entity.getDescription(),
-                entity.getStatus(),
-                entity.getParent() != null ? entity.getParent().getId() : null));
+        return Optional.of(rehydrate(entity));
     }
 
     public static List<Category> toDomainList(List<CategoryJpaEntity> entities) {
         if (entities == null) return List.of();
-        return entities.stream()
-                .map(e -> Category.rehydrate(e.getId(), e.getName(), e.getSlug(), e.getDescription(),
-                        e.getStatus(), e.getParent() != null ? e.getParent().getId() : null))
-                .toList();
+        return entities.stream().map(CategoryMapper::rehydrate).toList();
     }
 
     /** Maps scalar fields only; the parent reference is wired by the adapter (it owns the EntityManager). */
     public static CategoryJpaEntity toJpaEntity(Category category) {
         var entity = new CategoryJpaEntity();
         entity.setId(category.getId());
-        entity.setName(category.getName());
+        entity.setNameAz(category.getNameAz());
+        entity.setNameEn(category.getNameEn());
         entity.setSlug(category.getSlug());
-        entity.setDescription(category.getDescription());
+        entity.setDescriptionAz(category.getDescriptionAz());
+        entity.setDescriptionEn(category.getDescriptionEn());
         entity.setStatus(category.getStatus());
         return entity;
+    }
+
+    private static Category rehydrate(CategoryJpaEntity e) {
+        return Category.rehydrate(
+                e.getId(),
+                e.getNameAz(),
+                e.getNameEn(),
+                e.getSlug(),
+                e.getDescriptionAz(),
+                e.getDescriptionEn(),
+                e.getStatus(),
+                e.getParent() != null ? e.getParent().getId() : null);
     }
 }
