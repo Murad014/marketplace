@@ -374,6 +374,50 @@
       ]
     },
     {
+      "name": "Files (Uploads)",
+      "description": "Multipart upload of product variant images. Each form-data FIELD NAME is a variant key; its file(s) are the images for that variant. The response maps each field name -> list of public image URLs (served at {{baseUrl}}/images/<name>). Allowed types: PNG, JPG, JPEG, WEBP. In qa/prod add an ADMIN token (Authorization: Bearer {{accessToken}}); on the local profile no token is needed. IMPORTANT: in Postman do NOT set a Content-Type header manually — Postman adds the multipart boundary automatically.",
+      "item": [
+        {
+          "name": "Upload Variant Images",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/files/upload-variant-images",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "files",
+                "upload-variant-images"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "variant-black",
+                  "type": "file",
+                  "src": [],
+                  "description": "Field name = variant key. Select one or more image files for this variant."
+                },
+                {
+                  "key": "variant-white",
+                  "type": "file",
+                  "src": [],
+                  "description": "Add more fields with different variant keys as needed; each maps to its own list of URLs in the response."
+                }
+              ]
+            },
+            "description": "Uploads image files per variant. Returns 200 + a JSON object keyed by each form field name, e.g.:\n{\n  \"variant-black\": [\"{{baseUrl}}/images/9f1c...png\"],\n  \"variant-white\": [\"{{baseUrl}}/images/2a7d...png\"]\n}\nUse those URLs when creating the product (variant images) and directly in the frontend <img src>."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Catalog - Admin (Brands)",
       "description": "Admin brand management. `code` is normalized to UPPERCASE and must match ^[A-Z0-9]{2,20}$. Name and code are unique (case-insensitive). On update, `active` is optional (null leaves status unchanged).",
       "item": [
