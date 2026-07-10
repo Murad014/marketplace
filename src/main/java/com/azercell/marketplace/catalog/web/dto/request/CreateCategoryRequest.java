@@ -6,16 +6,22 @@ import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
-@Schema(description = "Payload to create a category")
+@Schema(description = "Payload to create a bilingual category")
 public record CreateCategoryRequest(
-        @Schema(description = "Display name", example = "Phones", maxLength = 120)
-        @NotBlank @Size(max = 120) String name,
+        @Schema(description = "Display name (Azerbaijani)", example = "Telefonlar", maxLength = 120)
+        @NotBlank @Size(max = 120) String nameAz,
 
-        @Schema(description = "URL slug; lowercased and unique", example = "phones", maxLength = 140)
+        @Schema(description = "Display name (English)", example = "Phones", maxLength = 120)
+        @NotBlank @Size(max = 120) String nameEn,
+
+        @Schema(description = "URL slug; lowercased and unique (language-neutral)", example = "phones", maxLength = 140)
         @NotBlank @Size(max = 140) String slug,
 
-        @Schema(description = "Optional description", example = "Smartphones and accessories", nullable = true)
-        @Size(max = 2000) String description,
+        @Schema(description = "Optional description (Azerbaijani)", nullable = true)
+        @Size(max = 2000) String descriptionAz,
+
+        @Schema(description = "Optional description (English)", nullable = true)
+        @Size(max = 2000) String descriptionEn,
 
         @Schema(description = "Optional parent category id; null/omitted = root category", nullable = true)
         UUID parentId

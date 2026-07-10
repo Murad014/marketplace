@@ -20,14 +20,20 @@ public class CategoryJpaEntity extends BaseEntity {
     @Id
     private UUID id;
 
-    @Column(nullable = false, length = 120)
-    private String name;
+    @Column(name = "name_az", nullable = false, length = 120)
+    private String nameAz;
+
+    @Column(name = "name_en", nullable = false, length = 120)
+    private String nameEn;
 
     @Column(nullable = false, unique = true, length = 140)
     private String slug;
 
-    @Column(columnDefinition = "text")
-    private String description;
+    @Column(name = "description_az", columnDefinition = "text")
+    private String descriptionAz;
+
+    @Column(name = "description_en", columnDefinition = "text")
+    private String descriptionEn;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

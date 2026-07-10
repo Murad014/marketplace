@@ -101,7 +101,8 @@ class OrderJourneyIT extends AbstractPostgresIntegrationTest {
     private UUID seedCategory() {
         var c = new CategoryJpaEntity();
         c.setId(UUID.randomUUID());
-        c.setName("Electronics");
+        c.setNameAz("Elektronika");
+        c.setNameEn("Electronics");
         c.setSlug("electronics-it");
         c.setStatus(Status.ACTIVE);
         return categoryRepository.save(c).getId();
