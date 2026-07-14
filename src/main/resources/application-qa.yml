@@ -35,5 +35,15 @@ app:
   # App's own public URL; drives generated image URLs. Override via APP_BASE_URL.
   base-url: ${APP_BASE_URL:http://localhost:8080}
   cors:
-    # Comma-separated browser origins allowed to call the API. Override via CORS_ALLOWED_ORIGINS.
-    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:8080}
+    # Allow all origins (safe here because auth is Bearer-token, allowCredentials=false — not cookies).
+    # TEMPORARY: lock this down to the real frontend host(s) via CORS_ALLOWED_ORIGINS before go-live.
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:*}
+  storage:
+    # Product images go to S3 in qa/prod. Credentials come from the AWS chain
+    # (env AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY, or an instance/role profile) — never put them here.
+    s3:
+      bucket: ${S3_BUCKET:}
+      region: ${S3_REGION:eu-central-1}
+      key-prefix: ${S3_KEY_PREFIX:products/images/}
+      # Optional CloudFront/CDN base; when empty, the raw S3 URL is used.
+      public-base-url: ${S3_PUBLIC_BASE_URL:}

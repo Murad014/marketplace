@@ -2,12 +2,15 @@ package com.azercell.marketplace.filemanager.controller;
 
 import com.azercell.marketplace.filemanager.service.ProductImageUploaderService;
 import org.springframework.core.io.Resource;
+import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +31,17 @@ public class ProductImageUploaderController implements FileUploadApi {
         return ResponseEntity.ok(response);
     }
 
-    /** Serves an uploaded image by file name (the URL returned by upload). Public storefront asset. */
+    /**
+     * Serves a locally-stored image by file name (local profile). In S3 mode the returned upload URL points
+     * straight at S3/CDN, so this returns 404 — nothing is served from disk.
+     */
     @GetMapping("/images/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
-        return uploaderService.loadImageAsResource(filename);
+        return uploaderService.loadImage(filename)
+                .map(resource -> ResponseEntity.ok()
+                        .contentType(MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM))
+                        .cacheControl(CacheControl.maxAge(Duration.ofDays(30)).cachePublic())
+                        .body(resource))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
