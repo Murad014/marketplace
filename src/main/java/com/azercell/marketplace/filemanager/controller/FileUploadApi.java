@@ -23,10 +23,10 @@ public interface FileUploadApi {
     ResponseEntity<Map<String, List<String>>> uploadProductVariantImages(
             MultiValueMap<String, MultipartFile> variantFilesMap);
 
-    @Operation(summary = "Get an uploaded image by file name",
-            description = "Returns the raw image bytes for a previously uploaded file — the URL that the upload "
-                    + "endpoint returns (e.g. /images/9f1c….png). Public: no token required, so it works directly "
-                    + "in a browser <img src>. Content-Type is detected from the file; 404 if it does not exist.")
+    @Operation(summary = "Get a locally-stored image by file name",
+            description = "Serves image bytes from local disk (dev/local profile). In qa/prod images live in S3 and "
+                    + "the upload endpoint returns the S3/CDN URL directly, so this endpoint returns 404 there. "
+                    + "Public: no token required; Content-Type is detected from the file.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Image bytes",
                     content = @Content(mediaType = "image/*",

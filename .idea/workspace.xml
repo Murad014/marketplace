@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="refactor: made dynamically base url for swagger">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bc45aba0-42f1-4d3f-b640-c28f92cde647" name="Changes" comment="feat: category eng and az languages">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/config/S3Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/config/S3StorageProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/storage/FileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/storage/LocalDiskFileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/storage/S3FileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/images/de8e1c59-a9b7-487b-bd6d-e17b91b3ff45.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/controller/FileUploadApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/controller/FileUploadApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/controller/ProductImageUploaderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/controller/ProductImageUploaderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/service/ProductImageUploaderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/azercell/marketplace/filemanager/service/ProductImageUploaderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application-qa.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-qa.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,11 +65,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.marketplace [:com.azercell.marketplace.MarketplaceApplication.main()].executor": "Debug",
+    "Gradle.marketplace [:com.azercell.marketplace.MarketplaceApplication.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Refactor-01",
+    "git-widget-placeholder": "file-manager",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/muradguliyev/Desktop/MMM/azercell/marketplace/documents"
   }
@@ -220,7 +229,39 @@
       <option name="project" value="LOCAL" />
       <updated>1782739744475</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: Created FAQ CRUD">
+      <option name="closed" value="true" />
+      <created>1783058879734</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1783058879734</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: Get Image by name">
+      <option name="closed" value="true" />
+      <created>1783665248365</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1783665248365</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat: remove hostname from response upload image.">
+      <option name="closed" value="true" />
+      <created>1783666584122</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1783666584122</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: category eng and az languages">
+      <option name="closed" value="true" />
+      <created>1783679389816</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1783679389816</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -238,6 +279,10 @@
     <MESSAGE value="feat: RHSSO setting implemented." />
     <MESSAGE value="feat: Implemented Product List filter by , category, name, min and max prices" />
     <MESSAGE value="refactor: made dynamically base url for swagger" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: made dynamically base url for swagger" />
+    <MESSAGE value="feat: Created FAQ CRUD" />
+    <MESSAGE value="feat: Get Image by name" />
+    <MESSAGE value="feat: remove hostname from response upload image." />
+    <MESSAGE value="feat: category eng and az languages" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: category eng and az languages" />
   </component>
 </project>
